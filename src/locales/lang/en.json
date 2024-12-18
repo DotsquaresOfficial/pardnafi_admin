@@ -1,0 +1,45 @@
+{
+    "nav": {
+       
+        "dashboardMenuItem": "Dashboard",
+        "collapseMenu": {
+            "collapseMenu": "User Management",
+            "item1": "View User List",
+            "item2": "Collapse menu item 2"
+        },
+
+        "conceptsCustomers": {
+            "customers": "User",
+            "customerList": "List",
+            "customerEdit": "Edit",
+            "customerDetails": "Details"
+        },
+
+        "transactionMenu": {
+            "transactionMenu": "Transaction Management",
+            "single": "Transaction single menu item",
+            "collapse": {
+                "collapse": "Transaction collapse menu",
+                "item1": "Transaction collapse menu item 1",
+                "item2": "Transaction collapse menu item 2"
+            }
+        },
+
+        
+        "contentMenu": {
+            "contentMenu": "Content Management",
+            "single": "Content single menu item",
+            "collapse": {
+                "collapse": "Content collapse menu",
+                "item1": "Term and Condtions item 1",
+                "item2": "Faq item 2",
+                "item3": "About Us item 3",
+                "item4": "Privacy Policy item 4"
+            }
+        },
+        "inquiryMenuItem": "Inquiry"
+
+
+      
+    }
+}
