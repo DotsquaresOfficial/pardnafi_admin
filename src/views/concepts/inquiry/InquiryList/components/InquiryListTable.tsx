@@ -10,7 +10,7 @@ import { TbPencil, TbEye } from 'react-icons/tb'
 import type { OnSortParam, ColumnDef, Row } from '@/components/shared/DataTable'
 import type { Inquiry } from '../types'
 import type { TableQueries } from '@/@types/common'
-
+import moment from 'moment';
 const statusColor: Record<string, string> = {
     active: 'bg-emerald-200 dark:bg-emerald-200 text-gray-900 dark:text-gray-900',
     blocked: 'bg-red-200 dark:bg-red-200 text-gray-900 dark:text-gray-900',
@@ -22,9 +22,9 @@ const NameColumn = ({ row }: { row: Inquiry }) => {
             {/* <Avatar size={40} shape="circle" src={row.img} /> */}
             <Link
                 className={`hover:text-primary ml-2 rtl:mr-2 font-semibold text-gray-900 dark:text-gray-100`}
-                to={`/concepts/users/user-details/${row.id}`}
+                to={`/concepts/inquiry/inquiry-details/${row._id}`}
             >
-                {row.firstName}
+                {row.Name}
             </Link>
         </div>
     )
@@ -80,73 +80,44 @@ const InquiryListTable = () => {
     const columns: ColumnDef<Inquiry>[] = useMemo(
         () => [
             {
-                header: 'First Name',
+                header: 'Name',
                 accessorKey: 'firstName',
-                cell: (props) => {
-                    const row = props.row.original
-                    return <NameColumn row={row} />
+                cell: (props: any) => {
+                    const row = props.row.original;
+                    return <NameColumn row={row} />;
                 },
             },
-            {
-                header: 'Last Name',
-                accessorKey: 'lastName',
-            },
+    
             {
                 header: 'Email Address',
-                accessorKey: 'emailAddress',
+                accessorKey: 'email',
             },
             {
                 header: 'Contact Number',
                 accessorKey: 'contactNumber',
             },
             {
-                header: 'message',
-                accessorKey: 'Message',
+                header: 'Message',
+                accessorKey: 'message',
             },
-            
-
-
-            // {
-            //     header: 'Account Status',
-            //     accessorKey: 'status',
-            //     cell: (props) => {
-            //         const row = props.row.original
-            //         return (
-            //             <div className="flex items-center">
-            //                 <Tag className={statusColor[row.status]}>
-            //                     <span className="capitalize">{row.status}</span>
-            //                 </Tag>
-            //             </div>
-            //         )
-            //     },
-            // },
-            // {
-            //     header: 'Registration date',
-            //     accessorKey: 'personalInfo.birthday',
-            // },
-            // {
-            //     header: 'Spent',
-            //     accessorKey: 'totalSpending',
-            //     cell: (props) => {
-            //         return <span>${props.row.original.totalSpending}</span>
-            //     },
-            // },
-            // {
-            //     header: '',
-            //     id: 'action',
-            //     cell: (props) => (
-            //         <ActionColumn
-            //             onEdit={() => handleEdit(props.row.original)}
-            //             onViewDetail={() =>
-            //                 handleViewDetails(props.row.original)
-            //             }
-            //         />
-            //     ),
-            // },
+            {
+                header: 'Registration Date',
+                accessorKey: 'createdAt',
+                cell: (props: any) => {
+                    const date = new Date(props.row.original.createdAt);
+                    const formattedDate = date.toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                    });
+    
+                    return <span>{formattedDate}</span>;
+                },
+            },
         ],
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        [],
-    )
+        [] // eslint-disable-next-line react-hooks/exhaustive-deps
+    );
+    
 
     const handleSetTableData = (data: TableQueries) => {
         setTableData(data)
@@ -202,7 +173,7 @@ const InquiryListTable = () => {
                 pageSize: tableData.pageSize as number,
             }}
             checkboxChecked={(row) =>
-                selectedCustomer.some((selected) => selected.id === row.id)
+                selectedCustomer.some((selected) => selected._id === row._id)
             }
             onPaginationChange={handlePaginationChange}
             onSelectChange={handleSelectChange}

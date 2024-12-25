@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import type { TableQueries } from '@/@types/common'
-import type { Inquiry, Filter } from '../types'
+import type { User, Filter } from '../types'
 
 export const initialTableData: TableQueries = {
     pageIndex: 1,
@@ -26,14 +26,14 @@ export const initialFilterData = {
 export type CustomersListState = {
     tableData: TableQueries
     filterData: Filter
-    selectedCustomer: Partial<Inquiry>[]
+    selectedCustomer: Partial<User>[]
 }
 
 type CustomersListAction = {
     setFilterData: (payload: Filter) => void
     setTableData: (payload: TableQueries) => void
-    setSelectedCustomer: (checked: boolean, customer: Inquiry) => void
-    setSelectAllCustomer: (customer: Inquiry[]) => void
+    setSelectedCustomer: (checked: boolean, customer: User) => void
+    setSelectAllCustomer: (customer: User[]) => void
 }
 
 const initialState: CustomersListState = {
@@ -42,7 +42,7 @@ const initialState: CustomersListState = {
     selectedCustomer: [],
 }
 
-export const useInquiryListStore = create<
+export const useUserListStore = create<
     CustomersListState & CustomersListAction
 >((set) => ({
     ...initialState,

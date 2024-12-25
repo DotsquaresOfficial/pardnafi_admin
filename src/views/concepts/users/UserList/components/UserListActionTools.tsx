@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import useUserList from '../hooks/useUserList'
 import { CSVLink } from 'react-csv'
 
-const CustomerListActionTools = () => {
+const UserListActionTools = () => {
     const navigate = useNavigate()
 
     const { userList } = useUserList()
@@ -28,4 +28,4 @@ const CustomerListActionTools = () => {
     )
 }
 
-export default CustomerListActionTools
+export default UserListActionTools

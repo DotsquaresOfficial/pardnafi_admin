@@ -1,9 +1,10 @@
 import type { Control, FieldErrors } from 'react-hook-form'
 
 export type OverviewFields = {
-    firstName?: string
-    lastName?: string
-    email?: string,
+    groupName?: string
+    groupImage?: string
+    description?:string
+    members?: [],
     avatar?:string,
     address?:string,
     dialCode?: string
@@ -33,9 +34,9 @@ export type AccountField = {
     isActive:boolean,
 }
 
-export type UserFormSchema = OverviewFields
+export type GroupFormSchema = OverviewFields
 
 export type FormSectionBaseProps = {
-    control: Control<UserFormSchema>
-    errors: FieldErrors<UserFormSchema>
+    control: Control<GroupFormSchema>
+    errors: FieldErrors<GroupFormSchema>
 }

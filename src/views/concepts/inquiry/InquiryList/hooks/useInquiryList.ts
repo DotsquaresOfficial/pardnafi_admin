@@ -1,4 +1,4 @@
-import { apiGetInquiryList } from '@/services/InquiryService'
+import { apiGetContactUsList } from '@/services/InquiryService'
 import useSWR from 'swr'
 import { useInquiryListStore } from '../store/inquiryListStore'
 import type { GetInquiryListResponse } from '../types'
@@ -20,14 +20,14 @@ export default function useInquiryList() {
         ['/api/inquiry', { ...tableData, ...filterData }],
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ([_, params]) =>
-            apiGetInquiryList<GetInquiryListResponse, TableQueries>(params),
+            apiGetContactUsList<GetInquiryListResponse, TableQueries>(params),
         {
             revalidateOnFocus: false,
         },
     )
     console.log(data,"data===")
 
-    const inquiryList = data?.list || []
+    const inquiryList = data?.tickets || []
 
 
     const inquiryListTotal = data?.total || 0

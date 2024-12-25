@@ -7,7 +7,7 @@ export type Filter = {
 
 
 
-export type User ={
+export type Group ={
     avatar: string;
     isDeleted: boolean;
     isActive: boolean;
@@ -18,19 +18,19 @@ export type User ={
     id:string;
   }
   
-  export type GetUsersListResponse =  {
+  export type GetGroupListResponse =  {
     message: string;
     success: boolean;
     status: number;
     total?: number;
-    users?: User[];
+    data?: GroupData[];
   }
 
-  export interface GroupsResponse {
+  export interface GroupResponse {
     message: string;
     success: boolean;
     status: number;
-    data: GroupData[];
+    data?: GroupData;
 }
 
 export interface GroupData {
@@ -45,6 +45,7 @@ export interface GroupData {
     updatedAt: string;  
     __v: number;
 }
+
 
   
 

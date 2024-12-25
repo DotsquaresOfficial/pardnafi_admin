@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import type { TableQueries } from '@/@types/common'
-import type { User, Filter } from '../types'
+import type { Group, Filter } from '../types'
 
 export const initialTableData: TableQueries = {
     pageIndex: 1,
@@ -26,14 +26,14 @@ export const initialFilterData = {
 export type CustomersListState = {
     tableData: TableQueries
     filterData: Filter
-    selectedCustomer: Partial<User>[]
+    selectedCustomer: Partial<Group>[]
 }
 
 type CustomersListAction = {
     setFilterData: (payload: Filter) => void
     setTableData: (payload: TableQueries) => void
-    setSelectedCustomer: (checked: boolean, customer: User) => void
-    setSelectAllCustomer: (customer: User[]) => void
+    setSelectedCustomer: (checked: boolean, customer: Group) => void
+    setSelectAllCustomer: (customer: Group[]) => void
 }
 
 const initialState: CustomersListState = {
@@ -42,7 +42,7 @@ const initialState: CustomersListState = {
     selectedCustomer: [],
 }
 
-export const useUserListStore = create<
+export const useGroupListStore = create<
     CustomersListState & CustomersListAction
 >((set) => ({
     ...initialState,
@@ -55,11 +55,11 @@ export const useUserListStore = create<
                 return { selectedCustomer: [...prevData, ...[row]] }
             } else {
                 if (
-                    prevData.some((prevCustomer) => row.id === prevCustomer.id)
+                    prevData.some((prevCustomer) => row._id === prevCustomer._id)
                 ) {
                     return {
                         selectedCustomer: prevData.filter(
-                            (prevCustomer) => prevCustomer.id !== row.id,
+                            (prevCustomer) => prevCustomer._id !== row._id,
                         ),
                     }
                 }

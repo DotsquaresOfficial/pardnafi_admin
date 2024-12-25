@@ -4,7 +4,7 @@ import Dialog from '@/components/ui/Dialog'
 import Checkbox from '@/components/ui/Checkbox'
 import Input from '@/components/ui/Input'
 import { Form, FormItem } from '@/components/ui/Form'
-import useCustomerList from '../hooks/useUserList'
+import useGroupList from '../hooks/useGroupList'
 import { TbFilter } from 'react-icons/tb'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -29,10 +29,10 @@ const validationSchema: ZodType<FormSchema> = z.object({
     purchaseChannel: z.array(z.string()),
 })
 
-const CustomerListTableFilter = () => {
+const UserListTableFilter = () => {
     const [dialogIsOpen, setIsOpen] = useState(false)
 
-    const { filterData, setFilterData } = useCustomerList()
+    const { filterData, setFilterData } = useGroupList()
 
     const openDialog = () => {
         setIsOpen(true)
@@ -116,4 +116,4 @@ const CustomerListTableFilter = () => {
     )
 }
 
-export default CustomerListTableFilter
+export default UserListTableFilter

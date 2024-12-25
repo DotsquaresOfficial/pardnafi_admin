@@ -9,17 +9,7 @@ import conceptsNavigationConfig from './concepts.navigation.config'
 import { CONCEPTS_PREFIX_PATH } from '@/constants/route.constant'
 
 const navigationConfig: NavigationTree[] = [
-    // {
-    //     key: 'home',
-    //     path: '/home',
-    //     title: 'Home',
-    //     translateKey: 'nav.home',
-    //     icon: 'home',
-    //     type: NAV_ITEM_TYPE_ITEM,
-    //     authority: [],
-    //     subMenu: [],
-    // },
-    /** Example purpose only, please remove */
+
     {
         key: 'dashboardMenuItem',
         path: '/dashboard',
@@ -223,13 +213,13 @@ const navigationConfig: NavigationTree[] = [
                         },
                         subMenu: [],
                     },
-                   
+
 
 
                 ],
             },
 
-         
+
 
             {
                 key: 'privacyPolicy.item2',
@@ -257,7 +247,7 @@ const navigationConfig: NavigationTree[] = [
                         },
                         subMenu: [],
                     },
-                   
+
 
 
                 ],
@@ -276,14 +266,14 @@ const navigationConfig: NavigationTree[] = [
         type: NAV_ITEM_TYPE_ITEM,
         authority: [],
         subMenu: [],
-        
+
     },
 
 
 
 
 
-    
+
 ]
 
 export default navigationConfig

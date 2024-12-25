@@ -8,9 +8,9 @@ import NumericInput from '@/components/shared/NumericInput'
 import { countryList } from '@/constants/countries.constant'
 import { Controller,useForm } from 'react-hook-form'
 import { components } from 'react-select'
-import type { FormSectionBaseProps, UserFormSchema } from './types'
+import type { FormSectionBaseProps, GroupFormSchema } from './types'
 import type { ControlProps, OptionProps } from 'react-select'
-import { uploadFile } from '@/services/UserService'
+import { uploadFile } from '@/services/GroupService'
 import { useToken } from '@/store/authStore'
 type OverviewSectionProps = FormSectionBaseProps
 
@@ -30,12 +30,7 @@ const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
     const someAsyncTokenFetchFunction = async (): Promise<string | null> => {
         return Promise.resolve(token);  
     };
-    const { setValue } = useForm<UserFormSchema>({
-        defaultValues: {
-            avatar: "", 
-        },
-    });
-    
+
 
 
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -63,7 +58,7 @@ const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
                 setImagePreview(response.file.url);
                
 
-                localStorage.setItem("avatar",response.file.url)
+                localStorage.setItem("groupImage",response.file.url)
             } else {
                 console.error("Failed to upload the file. Response was invalid.");
             }
@@ -76,36 +71,36 @@ const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
             {/* <h4 className="mb-6">Overview</h4> */}
             <div className="grid md:grid-cols-2 gap-4">
                 <FormItem
-                    label="First Name"
-                    invalid={Boolean(errors.firstName)}
-                    errorMessage={errors.firstName?.message}
+                    label="Group Name"
+                    invalid={Boolean(errors.groupName)}
+                    errorMessage={errors.groupName?.message}
                 >
                     <Controller
-                        name="firstName"
+                        name="groupName"
                         control={control}
                         render={({ field }) => (
                             <Input
                                 type="text"
                                 autoComplete="off"
-                                placeholder="First Name"
+                                placeholder="Group Name"
                                 {...field}
                             />
                         )}
                     />
                 </FormItem>
                 <FormItem
-                    label="Last Name"
-                    invalid={Boolean(errors.lastName)}
-                    errorMessage={errors.lastName?.message}
+                    label="Group Description"
+                    invalid={Boolean(errors.description)}
+                    errorMessage={errors.description?.message}
                 >
                     <Controller
-                        name="lastName"
+                        name="description"
                         control={control}
                         render={({ field }) => (
                             <Input
                                 type="text"
                                 autoComplete="off"
-                                placeholder="Last Name"
+                                placeholder="description"
                                 {...field}
                             />
                         )}
@@ -114,52 +109,13 @@ const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               
-
-                     <FormItem
-                    label="Phone Number"
-                    invalid={Boolean(errors.phoneNumber)}
-                    errorMessage={errors.phoneNumber?.message}
-                >
-                    <Controller
-                        name="phoneNumber"
-                        control={control}
-                        render={({ field }) => (
-                            <Input
-                                type="phoneNumber"
-                                autoComplete="off"
-                                placeholder="phoneNumber"
-                                {...field}
-                            />
-                        )}
-                    />
-                </FormItem>  <FormItem
-                    label="Address"
-                    invalid={Boolean(errors.address)}
-                    errorMessage={errors.address?.message}
-                >
-                    <Controller
-                        name="address"
-                        control={control}
-                        render={({ field }) => (
-                            <Input
-                                type="text"
-                                autoComplete="off"
-                                placeholder="address"
-                                {...field}
-                            />
-                        )}
-                    />
-
-                </FormItem> </div>
-            <div className="grid md:grid-cols-2 gap-4">
-            
-                <FormItem
-                label="Avatar"
-                invalid={Boolean(errors.avatar)}
-                errorMessage={errors.avatar?.message}
+            <FormItem
+                label="Group Image"
+                invalid={Boolean(errors.groupImage)}
+                errorMessage={errors.groupImage?.message}
             >
                 <Controller
-                    name="avatar"
+                    name="groupImage"
                     control={control}
                     render={({ field }) => (
                         <>
@@ -188,7 +144,8 @@ const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
                     )}
                 />
             </FormItem>
-            </div>
+                    </div>
+         
         </Card>
     )
 }

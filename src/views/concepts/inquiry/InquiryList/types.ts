@@ -1,9 +1,13 @@
 
 
 export type GetInquiryListResponse = {
-    list: Inquiry[]
-    total: number
-}
+    message: string;  
+    status: number;    
+    success: boolean; 
+    tickets: Inquiry[]; 
+    data?:Inquiry[]
+    total?:number
+};
 
 export type Filter = {
     purchasedProducts: string
@@ -11,11 +15,16 @@ export type Filter = {
 }
 
 export type Inquiry = {
-    id: string
-    firstName: string
-    lastName: string
-    email: string
-    contactNumber: number,
-    message: string
-
-}
+    _id: string;
+    Name: string;
+    Company: string;
+    jobTitle: string;
+    contactNumber: number;
+    email: string;
+    message: string;
+    isReplied: boolean;
+    isDeleted: boolean;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+};

@@ -1,22 +1,23 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import Container from '@/components/shared/Container'
 import Button from '@/components/ui/Button'
 import Notification from '@/components/ui/Notification'
 import toast from '@/components/ui/toast'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
-import { apiGetUser, updateUsers } from '@/services/userService'
-import UserForm from '../UserForm'
+import { apiGetGroup, updateGroups } from '@/services/GroupService'
+import GroupForm from '../GroupForm'
 import sleep from '@/utils/sleep'
 import NoUserFound from '@/assets/svg/NoUserFound'
 import { TbTrash, TbArrowNarrowLeft } from 'react-icons/tb'
 import { useParams, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
-import type { UserFormSchema } from '../UserForm'
-import type { User } from '../UserList/types'
+import type { GroupFormSchema } from '../GroupForm'
+import type { Group } from '../GroupList/types'
 import { useToken } from '@/store/authStore'
-const UserEdit = () => {
+const GroupEdit = () => {
     const { id } = useParams()
+    console.log(id,"gggg")
 
 
     const navigate = useNavigate()
@@ -32,19 +33,28 @@ const UserEdit = () => {
     // )
     const { setValue } = useForm({
         defaultValues: {
-            avatar: "", // default value for avatar field
+            avatar: "",
         },
     });
-    console.log(setValue, "setValue==")
+
 
     const { data, isLoading, error } = useSWR(
-        id ? [`/user/get-user-by-id/${id}`, { id: id as string }] : null,
-        ([url, params]) => apiGetUser<User, { id: string }>(params),
+        id ? [`/group/get-group-by-id/${id}`, { id: id as string }] : null,
+        ([url, params]) => apiGetGroup<Group, { id: string }>(params),
         {
             revalidateOnFocus: false,
             revalidateIfStale: false,
         }
     );
+
+  
+
+    useEffect(() => {
+     console.log("calklll")
+        getDefaultValues()
+     
+    }, [id])
+    
 
 
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
@@ -60,21 +70,25 @@ const UserEdit = () => {
 
 
 
-    const handleFormSubmit = async (values: UserFormSchema) => {
-
-        const avatar = localStorage.getItem("avatar")
+    const handleFormSubmit = async (values: GroupFormSchema) => {
+        const groupImage
+            = localStorage.getItem("groupImage")
 
         setIsSubmiting(true)
         await sleep(800)
         const tokenPromise = someAsyncTokenFetchFunction()
-        const resp = await updateUsers({ ...values, avatar, id }, tokenPromise)
+        const resp = await updateGroups({
+            ...values, groupImage
+            , id
+        }, tokenPromise)
         if (resp?.success) {
             setIsSubmiting(false)
             toast.push(
                 <Notification type="success">{resp?.message}</Notification>,
                 { placement: 'top-center' },
             )
-            navigate('/concepts/users/user-list')
+            navigate('/concepts/group/group-list')
+            localStorage.removeItem("groupImage")
 
         } else {
             toast.push(
@@ -86,13 +100,14 @@ const UserEdit = () => {
     }
 
     const getDefaultValues = () => {
+        console.log(data?.data,"data?.data===")
         if (data?.data) {
-            const { firstName, lastName, address, email, phoneNumber, avatar } = data?.data
+            const { groupName, description, groupImage } = data?.data
 
             return {
-                firstName,
-                lastName,
-                avatar, address, phoneNumber: phoneNumber != null ? phoneNumber.toString() : "", email
+                groupName,
+                description,
+                groupImage,
 
             }
         }
@@ -131,9 +146,9 @@ const UserEdit = () => {
             )}
             {!isLoading && data && (
                 <>
-                    <UserForm
-                        defaultValues={getDefaultValues() as UserFormSchema}
-                        newUser={false}
+                    <GroupForm
+                        defaultValues={getDefaultValues() as GroupFormSchema}
+                        newGroup={false}
                         onFormSubmit={handleFormSubmit}
                     >
                         <Container>
@@ -169,7 +184,7 @@ const UserEdit = () => {
                                 </div>
                             </div>
                         </Container>
-                    </UserForm>
+                    </GroupForm>
                     <ConfirmDialog
                         isOpen={deleteConfirmationOpen}
                         type="danger"
@@ -190,4 +205,4 @@ const UserEdit = () => {
     )
 }
 
-export default UserEdit
+export default GroupEdit

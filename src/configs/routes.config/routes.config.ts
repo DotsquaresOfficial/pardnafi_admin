@@ -10,6 +10,7 @@ import { FaSquareYoutube } from 'react-icons/fa6'
 import termsRoute from './termsRoute'
 import aboutUsRoute from './aboutUsRoute'
 import privacyPolicyRoute from './privacyPolicyRoute'
+import groupRoute from './groupRoute'
 export const publicRoutes: Routes = [...authRoute]
 
 export const protectedRoutes: Routes = [
@@ -27,6 +28,7 @@ export const protectedRoutes: Routes = [
         authority: [],
     },
     ...conceptsRoute,
+    ...groupRoute,
 
   
     ...termsRoute,

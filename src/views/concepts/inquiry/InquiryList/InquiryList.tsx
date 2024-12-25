@@ -3,7 +3,7 @@ import Container from '@/components/shared/Container'
 import InquiryListTable from './components/InquiryListTable'
 import InquiryListActionTools from './components/InquiryListActionTools'
 import InquirysListTableTools from './components/InquirysListTableTools'
-import InquiryListSelected from './components/InquiryListSelected'
+// import InquiryListSelected from './components/InquiryListSelected'
 
 const CustomerList = () => {
     return (
@@ -20,7 +20,7 @@ const CustomerList = () => {
                     </div>
                 </AdaptiveCard>
             </Container>
-            <InquiryListSelected />
+            {/* <InquiryListSelected /> */}
         </>
     )
 }

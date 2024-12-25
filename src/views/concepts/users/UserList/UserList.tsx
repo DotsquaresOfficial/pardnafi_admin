@@ -1,8 +1,8 @@
 import AdaptiveCard from '@/components/shared/AdaptiveCard'
 import Container from '@/components/shared/Container'
-import CustomerListTable from './components/CustomerListTable'
-import CustomerListActionTools from './components/CustomerListActionTools'
-import CustomersListTableTools from './components/CustomersListTableTools'
+import CustomerListTable from './components/UserListTable'
+import CustomerListActionTools from './components/UserListActionTools'
+import CustomersListTableTools from './components/UserListTableTools'
 
 
 const CustomerList = () => {

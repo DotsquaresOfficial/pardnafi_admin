@@ -1,10 +1,10 @@
-import { apiGetUsersList } from '@/services/UserService'
+import { apiGetGroupList } from '@/services/GroupService'
 import useSWR from 'swr'
-import { useUserListStore } from '../store/userListStore'
-import type {  GetUsersListResponse } from '../types'
+import { useGroupListStore } from '../store/groupListStore'
+import type {  GetGroupListResponse } from '../types'
 import type { TableQueries } from '@/@types/common'
 
-export default function useUserList() {
+export default function useGroupList() {
     const {
         tableData,
         filterData,
@@ -13,26 +13,26 @@ export default function useUserList() {
         setSelectedCustomer,
         setSelectAllCustomer,
         setFilterData,
-    } = useUserListStore((state) => state)
+    } = useGroupListStore((state) => state)
 
 
     const { data, error, isLoading, mutate } = useSWR(
-        ['/api/users', { ...tableData, ...filterData }],
+        ['/api/group', { ...tableData, ...filterData }],
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ([_, params]) =>
-            apiGetUsersList<GetUsersListResponse, TableQueries>(params),
+            apiGetGroupList<GetGroupListResponse, TableQueries>(params),
         {
             revalidateOnFocus: false,
         },
     )
 
-    const userList = data?.users || []
+    const groupList = data?.data || []
 
     const userListTotal = data?.total || 0
 
 
     return {
-        userList,
+        groupList,
         userListTotal,
         error,
         isLoading,

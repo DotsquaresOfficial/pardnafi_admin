@@ -1,3 +1,3 @@
-import CustomerList from './CustomerList'
+import UserList from './UserList'
 
-export default CustomerList
+export default UserList

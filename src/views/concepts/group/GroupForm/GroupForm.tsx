@@ -12,24 +12,20 @@ import { useForm } from 'react-hook-form'
 import { number, z } from 'zod'
 import type { ZodType } from 'zod'
 import type { CommonProps } from '@/@types/common'
-import type { UserFormSchema } from './types'
+import type { GroupFormSchema } from './types'
 
 type CustomerFormProps = {
-    onFormSubmit: (values: UserFormSchema) => void
-    defaultValues?: UserFormSchema
-    newUser?: boolean
+    onFormSubmit: (values: GroupFormSchema) => void
+    defaultValues?: GroupFormSchema
+    newGroup?: boolean
 } & CommonProps
 
-const validationSchema: ZodType<UserFormSchema> = z.object({
-    firstName: z.string().min(1, { message: 'First name required' }),
-    lastName: z.string().min(1, { message: 'Last name required' }),
-    address: z.string().min(1, { message: 'Addrress required' }),
+const validationSchema: ZodType<GroupFormSchema> = z.object({
+    groupName: z.string().min(1, { message: 'Group name required' }),
+    description: z.string().min(1, { message: 'Description name required' }),
+    groupImage: z.string().min(1, { message: 'Group Image required' }),
 
-    phoneNumber: z
-        .string()
-        .min(10, { message: 'Phone number must be at least 10 digits' })
-        .regex(/^\d+$/, { message: 'Phone number must contain only digits' }) // Validate phone number is digits only
-    ,
+ 
     // country: z.string().min(1, { message: 'Please select a country' }),
 
     // postcode: z.string().min(1, { message: 'Postcode required' }),
@@ -38,11 +34,11 @@ const validationSchema: ZodType<UserFormSchema> = z.object({
     // tags: z.array(z.object({ value: z.string(), label: z.string() })),
 })
 
-const UserForm = (props: CustomerFormProps) => {
+const GroupForm = (props: CustomerFormProps) => {
     const {
         onFormSubmit,
         defaultValues = {},
-        newUser = false,
+        newGroup = false,
         children,
     } = props
 
@@ -51,7 +47,7 @@ const UserForm = (props: CustomerFormProps) => {
         reset, setValue: any,
         formState: { errors },
         control,
-    } = useForm<UserFormSchema>({
+    } = useForm<GroupFormSchema>({
 
         defaultValues: {
             ...{
@@ -72,8 +68,9 @@ const UserForm = (props: CustomerFormProps) => {
 
     }, [JSON.stringify(defaultValues)])
 
-    const onSubmit = (values: UserFormSchema) => {
-
+    const onSubmit = (values: GroupFormSchema) => {
+        
+console.log(values,"groupImage===")
 
         onFormSubmit?.(values)
     }
@@ -98,4 +95,4 @@ const UserForm = (props: CustomerFormProps) => {
     )
 }
 
-export default UserForm
+export default GroupForm

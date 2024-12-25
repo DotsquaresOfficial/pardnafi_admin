@@ -79,6 +79,94 @@ const conceptsNavigationConfig: NavigationTree[] = [
         ],
     },
 
+    {
+        key: 'groupMenuItem',
+        path: '',
+        title: 'Group Management',
+        translateKey: 'nav.conceptsGroup.group',
+        icon: 'groupMenuItem',
+        type: NAV_ITEM_TYPE_COLLAPSE,
+        authority: [ADMIN, USER],
+        meta: {
+            description: {
+                translateKey: 'nav.conceptsGroup.groupDesc',
+                label: 'Group management',
+            },
+        },
+        subMenu: [
+            {
+                key: 'concepts.group.groupList',
+                path: `${CONCEPTS_PREFIX_PATH}/group/group-list`,
+                title: 'Group List',
+                translateKey: 'nav.conceptsGroup.groupList',
+                icon: 'groupList',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [ADMIN, USER],
+                meta: {
+                    description: {
+                        translateKey:
+                            'nav.conceptsGroup.groupListDesc',
+                        label: 'List of all group',
+                    },
+                },
+                subMenu: [],
+            },
+
+            {
+                key: 'concepts.group.groupCreate',
+                path: `${CONCEPTS_PREFIX_PATH}/group/group-create`,
+                title: 'group Create',
+                translateKey: 'nav.conceptsGroup.groupCreate',
+                icon: 'groupCreate',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [ADMIN, USER],
+                meta: {
+                    description: {
+                        translateKey:
+                            'nav.conceptsGroup.groupCreateDesc',
+                        label: 'Create group info',
+                    },
+                },
+                subMenu: [],
+            },
+            {
+                key: 'concepts.group.groupEdit',
+                path: `${CONCEPTS_PREFIX_PATH}/group/group-edit/1`,
+                title: 'group Edit',
+                translateKey: 'nav.conceptsGroup.groupEdit',
+                icon: 'groupEdit',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [ADMIN, USER],
+                meta: {
+                    description: {
+                        translateKey:
+                            'nav.conceptsGroup.groupEditDesc',
+                        label: 'Edit group info',
+                    },
+                },
+                subMenu: [],
+            },
+
+            // {
+            //     key: 'concepts.group.groupDetails',
+            //     path: `${CONCEPTS_PREFIX_PATH}/group/group-details/1`,
+            //     title: 'Group Details',
+            //     translateKey: 'nav.conceptsGroup.groupDetails',
+            //     icon: 'groupDetails',
+            //     type: NAV_ITEM_TYPE_ITEM,
+            //     authority: [ADMIN, USER],
+            //     meta: {
+            //         description: {
+            //             translateKey:
+            //                 'nav.conceptsgroup.groupDetailsDesc',
+            //             label: 'Detailed user info',
+            //         },
+            //     },
+            //     subMenu: [],
+            // },
+        ],
+    },
+
 
 
 ]

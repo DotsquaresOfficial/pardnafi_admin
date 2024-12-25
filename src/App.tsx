@@ -5,6 +5,7 @@ import { AuthProvider } from '@/auth'
 import Views from '@/views'
 import appConfig from './configs/app.config'
 import './locales'
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 if (appConfig.enableMock) {
     import('./mock')
