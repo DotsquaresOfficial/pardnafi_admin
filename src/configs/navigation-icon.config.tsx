@@ -7,7 +7,7 @@ import {
     PiBagSimpleDuotone,
     PiReceiptDuotone,
     PiFileTextDuotone,
-    PiMagnifyingGlassDuotone,PiUserDuotone ,PiUsersDuotone 
+    PiMagnifyingGlassDuotone,PiUserDuotone ,PiUsersDuotone ,PiUserCircleDuotone
 } from 'react-icons/pi';
 import { PiChartLineDuotone } from 'react-icons/pi';
 
@@ -25,7 +25,8 @@ const navigationIcon: NavigationIcons = {
     transactioncollapseMenu: <PiReceiptDuotone />,
     contentMenu: <PiFileTextDuotone />,
     inquiryMenuItem: <PiMagnifyingGlassDuotone />,
-    groupMenuItem: <PiUsersDuotone />
+    groupMenuItem: <PiUsersDuotone />,
+    kycMenuItem: <PiUserCircleDuotone />
     
 };
 

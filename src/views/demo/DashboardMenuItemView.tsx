@@ -2,7 +2,7 @@ import Button from '@/components/ui/Button'
 import Card from '@/components/ui/Card'
 import classNames from '@/utils/classNames'
 import { Link } from 'react-router-dom'
-import { TbUsers, TbFileText, TbMessageCircle, TbUserCheck, TbUserX } from 'react-icons/tb';
+import { TbUsers, TbFileText, TbMessageCircle, TbUserCheck, TbUserX, TbClock, TbCodeCircle, TbExclamationCircle } from 'react-icons/tb';
 // import { Project } from '../types'
 
 import { useEffect, useState, type ReactNode } from 'react'
@@ -67,6 +67,11 @@ const DashboardMenuItemView = () => {
     const [totalFAQs, setTotalFAQs] = useState<number | undefined>(undefined);
     const [totalContactUs, setTotalContactUs] = useState<number | undefined>(undefined);
 
+    const [approvedKycUsers, setApprovedKycUsers] = useState<number | undefined>(undefined);
+    const [totalRejectedKyc, setTotalRejectedKyc] = useState<number | undefined>(undefined);
+    const [totalPendingKyc, setTotalPendingKyc] = useState<number | undefined>(undefined);
+    const [totalNotSubmittedKyc, setTotalNotSubmittedKyc] = useState<number | undefined>(undefined);
+
 
 
 
@@ -80,7 +85,7 @@ const DashboardMenuItemView = () => {
         const tokenPromise = someAsyncTokenFetchFunction();
 
         const response = await getDashboardData(tokenPromise)
-        console.log()
+        console.log(response, "responsekkio")
 
         if (response?.success) {
 
@@ -89,6 +94,12 @@ const DashboardMenuItemView = () => {
             setActiveUsers(response.data?.activeUsers);
             setTotalFAQs(response.data?.totalFAQs);
             setTotalContactUs(response.data?.totalContactUs);
+            setApprovedKycUsers(response.data?.totalApprovedKYC)
+            setTotalRejectedKyc(response.data?.totalRejectedKYC
+            )
+            setTotalPendingKyc(response.data?.totalPendingKYC)
+            setTotalNotSubmittedKyc(response.data?.totalNotSubmittedKYC
+            )
         }
 
 
@@ -132,6 +143,37 @@ const DashboardMenuItemView = () => {
                     value={deActiveUsers}
                     icon={<TbUserX />}
                 />
+
+                <StatisticCard
+                    title="Total Approved Kyc Users"
+                    className="bg-sky-100 dark:bg-opacity-75"
+                    value={approvedKycUsers ? approvedKycUsers : 0}
+                    icon={<TbUserCheck className="text-green-500" />} // Green check icon for approved
+                />
+
+                <StatisticCard
+                    title="Total Rejected Kyc Users"
+                    className="bg-sky-100 dark:bg-opacity-75"
+                    value={totalRejectedKyc ? totalRejectedKyc : 0}
+                    icon={<TbUserX className="text-red-500" />} // Red "X" icon for rejected
+                />
+
+                <StatisticCard
+                    title="Total Pending Kyc Users"
+                    className="bg-sky-100 dark:bg-opacity-75"
+                    value={totalPendingKyc ? totalPendingKyc : 0}
+                    icon={<TbClock className="text-yellow-500" />} // Yellow clock icon for pending
+                />
+
+                <StatisticCard
+                    title="Total Not Submit Kyc Users"
+                    className="bg-sky-100 dark:bg-opacity-75"
+                    value={totalNotSubmittedKyc ? totalNotSubmittedKyc : 0}
+                    icon={<TbExclamationCircle className="text-orange-500" />} // Orange exclamation for not submitted
+                />
+
+
+
                 <Link to="/concepts/faq/faq-list" className="block">
                     <StatisticCard
                         title="Total Faqs"

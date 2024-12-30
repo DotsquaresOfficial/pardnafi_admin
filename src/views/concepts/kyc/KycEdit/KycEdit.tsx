@@ -5,39 +5,47 @@ import Button from '@/components/ui/Button'
 import Notification from '@/components/ui/Notification'
 import toast from '@/components/ui/toast'
 import ConfirmDialog from '@/components/shared/ConfirmDialog'
-import { apiGetUser, updateUsers } from '@/services/userService'
-import UserForm from '../UserForm'
+import { apiGetKyc, updateKyc } from '@/services/kycService'
+import KycForm from '../KycForm'
 import sleep from '@/utils/sleep'
 import NoUserFound from '@/assets/svg/NoUserFound'
 import { TbTrash, TbArrowNarrowLeft } from 'react-icons/tb'
 import { useParams, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
-import type { UserFormSchema } from '../UserForm'
-import type { User, UsersResponse } from '../UserList/types'
+import type { KycFormSchema } from '../KycForm'
+import type { Kyc } from '../KycList/types'
 import { useToken } from '@/store/authStore'
-const UserEdit = () => {
+const KycEdit = () => {
     const { id } = useParams()
 
 
     const navigate = useNavigate()
 
-  
+    // const { data, isLoading } = useSWR(
+    //     [`/user/get-user-by-id${id}`, { id: id as string }],
+    //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //     ([_, params]) => apiGetUser<User, { id: string }>(params),
+    //     {
+    //         revalidateOnFocus: false,
+    //         revalidateIfStale: false,
+    //     },
+    // )
     const { setValue } = useForm({
         defaultValues: {
             avatar: "", // default value for avatar field
         },
     });
- 
+
 
     const { data, isLoading, error } = useSWR(
-        id ? [`/user/get-user-by-id/${id}`, { id: id as string }] : null,
-        ([url, params]) => apiGetUser<UsersResponse, { id: string }>(params),
+        id ? [`/kyc/get-kyc-by-id/${id}`, { id: id as string }] : null,
+        ([url, params]) => apiGetKyc<Kyc, { id: string }>(params),
         {
             revalidateOnFocus: false,
             revalidateIfStale: false,
         }
     );
-   
+
 
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
     const [isSubmiting, setIsSubmiting] = useState(false)
@@ -52,21 +60,21 @@ const UserEdit = () => {
 
 
 
-    const handleFormSubmit = async (values: UserFormSchema) => {
+    const handleFormSubmit = async (values: KycFormSchema) => {
 
         const avatar = localStorage.getItem("avatar")
 
         setIsSubmiting(true)
         await sleep(800)
         const tokenPromise = someAsyncTokenFetchFunction()
-        const resp = await updateUsers({ ...values, avatar, id }, tokenPromise)
+        const resp = await updateKyc({ ...values, avatar, id }, tokenPromise)
         if (resp?.success) {
             setIsSubmiting(false)
             toast.push(
                 <Notification type="success">{resp?.message}</Notification>,
                 { placement: 'top-center' },
             )
-            navigate('/concepts/users/user-list')
+            navigate('/concepts/kyc/kyc-list')
 
         } else {
             toast.push(
@@ -78,16 +86,16 @@ const UserEdit = () => {
     }
 
     const getDefaultValues = () => {
-        if (data?.data?.user_details) {
-            const { firstName, lastName, address, email, phoneNumber, avatar } = data?.data?.user_details
+        // if (data?.data) {
+        //     const { firstName, lastName, address, email, phoneNumber, avatar } = data?.data
 
-            return {
-                firstName,
-                lastName,
-                avatar, address, phoneNumber: phoneNumber != null ? phoneNumber.toString() : "", email
+        //     return {
+        //         firstName,
+        //         lastName,
+        //         avatar, address, phoneNumber: phoneNumber != null ? phoneNumber.toString() : "", email
 
-            }
-        }
+        //     }
+        // }
 
         return {}
     }
@@ -123,8 +131,8 @@ const UserEdit = () => {
             )}
             {!isLoading && data && (
                 <>
-                    <UserForm
-                        defaultValues={getDefaultValues() as UserFormSchema}
+                    <KycForm
+                        defaultValues={getDefaultValues() as KycFormSchema}
                         newUser={false}
                         onFormSubmit={handleFormSubmit}
                     >
@@ -161,11 +169,11 @@ const UserEdit = () => {
                                 </div>
                             </div>
                         </Container>
-                    </UserForm>
+                    </KycForm>
                     <ConfirmDialog
                         isOpen={deleteConfirmationOpen}
                         type="danger"
-                        title="Remove users"
+                        title="Remove kyc"
                         onClose={handleCancel}
                         onRequestClose={handleCancel}
                         onCancel={handleCancel}
@@ -182,4 +190,4 @@ const UserEdit = () => {
     )
 }
 
-export default UserEdit
+export default KycEdit

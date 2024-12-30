@@ -29,6 +29,20 @@ export const updateUserStatusApi: string = baseUrl + "/user/update-user-status";
 // ====================users ===============================
 
 
+
+
+// ====================kyc ===============================
+
+export const getAllKycApi: string = baseUrl + "/kyc/get-all-Kyc";
+export const updateKycApi: string = baseUrl + "/kyc/update-kyc-details";
+export const searchQueryKycApi: string = baseUrl + "/kyc/query-Kyc";
+export const getKycByIdApi: string = baseUrl + "/kyc/get-kyc-by-id";
+export const updateKycStatusApi: string = baseUrl + "/user/update-user-kyc-status";
+
+
+// ====================kyc ===============================
+
+
 // =================faq==================
 export const faqApi: string = baseUrl + "/faqs/get-faqs";
 export const faqCreateApi: string = baseUrl + "/faqs/create-faqs";

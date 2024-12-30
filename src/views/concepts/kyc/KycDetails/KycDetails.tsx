@@ -1,25 +1,23 @@
 import Card from '@/components/ui/Card'
 import Tabs from '@/components/ui/Tabs'
 import Loading from '@/components/shared/Loading'
-import ProfileSection from './ProfileSection'
+// import ProfileSection from './ProfileSection'
 
-import { apiGetUser } from '@/services/UserService'
+import { apiGetKyc } from '@/services/KycService'
 import useSWR from 'swr'
 import { useParams } from 'react-router-dom'
 import isEmpty from 'lodash/isEmpty'
-import type { User } from '../UserList/types'
-import KycSection from './KycSection'
+import type { Kyc } from '../KycList/types'
 
 const { TabNav, TabList, TabContent } = Tabs
 
-const UserDetails = () => {
+const KycDetails = () => {
     const { id } = useParams()
-    console.log(id,"id00")
 
     const { data, isLoading } = useSWR(
-        id ? [`/user/get-user-by-id/${id}`, { id: id as string }] : null,
+        ['/api/kyc', { id: id as string }],
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ([_, params]) => apiGetUser<User, { id: string }>(params),
+        ([_, params]) => apiGetKyc<Kyc, { id: string }>(params),
         {
             revalidateOnFocus: false,
             revalidateIfStale: false,
@@ -27,17 +25,12 @@ const UserDetails = () => {
         },
     )
 
- 
- 
     return (
         <Loading loading={isLoading}>
             {!isEmpty(data) && (
-                <div  className="flex flex-col lg:flex-row gap-4">
-                    <div className="gap-4 flex flex-col flex-auto">
-                        <ProfileSection data={data} />
-                    </div>
-                    <div className="gap-4 flex flex-col flex-auto">
-                        <KycSection data={data} />
+                <div className="flex flex-col xl:flex-row gap-4">
+                    <div className="min-w-[330px] 2xl:min-w-[400px]">
+                        {/* <ProfileSection datas={data} /> */}
                     </div>
                   
                 </div>
@@ -46,4 +39,4 @@ const UserDetails = () => {
     )
 }
 
-export default UserDetails
+export default KycDetails

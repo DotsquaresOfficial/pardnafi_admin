@@ -11,6 +11,7 @@ import termsRoute from './termsRoute'
 import aboutUsRoute from './aboutUsRoute'
 import privacyPolicyRoute from './privacyPolicyRoute'
 import groupRoute from './groupRoute'
+import kycRoute from './kycRoute'
 export const publicRoutes: Routes = [...authRoute]
 
 export const protectedRoutes: Routes = [
@@ -28,6 +29,7 @@ export const protectedRoutes: Routes = [
         authority: [],
     },
     ...conceptsRoute,
+    ...kycRoute,
     ...groupRoute,
 
   

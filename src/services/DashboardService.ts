@@ -14,6 +14,12 @@ interface DashboardResponse {
         activeUsers: number;
         totalFAQs: number;
         totalContactUs: number;
+        totalApprovedKYC:number;
+        totalPendingKYC:number;
+        totalRejectedKYC:number;
+        totalNotSubmittedKYC:number;
+
+
     };
 }
 

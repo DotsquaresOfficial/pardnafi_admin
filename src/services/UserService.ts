@@ -39,7 +39,7 @@ export async function apiGetUser<T, U extends Record<string, string>>({
     id,
     ...params
 }: U) {
-    console.log(id, "UsersResponse===")
+
     const tokenPromise = someAsyncTokenFetchFunction();
     return getUsersById(id, tokenPromise);
 

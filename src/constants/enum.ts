@@ -1,0 +1,6 @@
+ export const KycStatus = {
+    NOT_SUBMITTED: "NOT_SUBMITTED",
+    PENDING_REVIEW: "PENDING_REVIEW",
+    APPROVED: "APPROVED",
+    REJECTED: "REJECTED"
+}
