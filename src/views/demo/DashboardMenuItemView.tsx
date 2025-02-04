@@ -126,21 +126,21 @@ const DashboardMenuItemView = () => {
                     <StatisticCard
                         title="Total Users"
                         className="bg-sky-100 dark:bg-opacity-75"
-                        value={totalUsers}
+                        value={totalUsers?totalUsers:0}
                         icon={<TbUsers />}
                     />
                 </Link>
                 <StatisticCard
                     title="Total Active Users"
                     className="bg-sky-100 dark:bg-opacity-75"
-                    value={activeUsers}
+                    value={activeUsers?activeUsers:0}
                     icon={<TbUserCheck />}
                 />
 
                 <StatisticCard
                     title="Total Blocked Users"
                     className="bg-sky-100 dark:bg-opacity-75"
-                    value={deActiveUsers}
+                    value={deActiveUsers?deActiveUsers:0}
                     icon={<TbUserX />}
                 />
 
@@ -178,7 +178,7 @@ const DashboardMenuItemView = () => {
                     <StatisticCard
                         title="Total Faqs"
                         className="bg-emerald-100 dark:bg-opacity-75"
-                        value={totalFAQs}
+                        value={totalFAQs?totalFAQs:0}
                         icon={<TbFileText />}
                     /></Link>
 
@@ -187,7 +187,7 @@ const DashboardMenuItemView = () => {
                     <StatisticCard
                         title="Total Inquiry"
                         className="bg-purple-100 dark:bg-opacity-75"
-                        value={totalContactUs}
+                        value={totalContactUs?totalContactUs:0}
                         icon={<TbMessageCircle />}
                     />
                 </Link>

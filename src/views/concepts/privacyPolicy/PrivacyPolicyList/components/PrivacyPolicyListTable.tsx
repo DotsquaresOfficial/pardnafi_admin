@@ -8,7 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import type { PageData } from '../../../termsAndConditions/TermsList/types';
 import { pageCreate, getAllPage } from '@/services/TermsAndConditionsServices';
 import { privacy_policy } from '@/constants/slugType';
-
+import { confirmAlert } from "react-confirm-alert";
 const PrivacyPolicyListTable = () => {
 
 
@@ -94,7 +94,25 @@ const PrivacyPolicyListTable = () => {
 
 
     };
+    const handlePublishPrivacyPolicy = (): void => {
+        const message =
+            "Are you sure to do publish this Privacy Policy"
 
+
+        confirmAlert({
+            title: "Confirm to submit",
+            message: message,
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: () => handleSave(),
+                },
+                {
+                    label: "No",
+                },
+            ],
+        });
+    };
 
     return (
         <div >
@@ -112,10 +130,10 @@ const PrivacyPolicyListTable = () => {
                     <ReactQuill value={description} onChange={handleDescriptionContentChange} />
                 </div>
                 <button
-                    onClick={() => handleSave()}
+                    onClick={() => handlePublishPrivacyPolicy()}
                     className="mt-4 bg-blue-500 text-white p-2 rounded"
                 >
-                    Save Changes
+                    Publish
                 </button>
             </div>
 

@@ -100,7 +100,7 @@ const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
                             <Input
                                 type="text"
                                 autoComplete="off"
-                                placeholder="description"
+                                placeholder="Group Description"
                                 {...field}
                             />
                         )}

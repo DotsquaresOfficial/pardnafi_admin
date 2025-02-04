@@ -59,7 +59,7 @@ const ActionColumn = ({
     onEdit,
     onViewDetail,
     isActive, kycStatus, onStaus,
-    onToggleStatus,row 
+    onToggleStatus, row
 }: {
     onEdit: () => void;
     onViewDetail: () => void;
@@ -67,7 +67,7 @@ const ActionColumn = ({
     kycStatus: string;
     onStaus: (status: string, row: any) => void
     onToggleStatus: () => void;
-    row: any; 
+    row: any;
 }) => {
 
 
@@ -105,7 +105,7 @@ const ActionColumn = ({
                     className={`text-xl cursor-pointer select-none font-semibold`}
                     role="button"
                     onClick={() => row.kycStatus === KycStatus.PENDING_REVIEW ? onStaus("APPROVED", row) : ""}
-                   
+
                 >
                     {/* kycStatus == KycStatus.PENDING_REVIEW  */}
                     <MdCheckCircle className="text-green-500" />
@@ -121,7 +121,7 @@ const ActionColumn = ({
                     onClick={() => row.kycStatus === KycStatus.PENDING_REVIEW ? onStaus("REJECTED", row) : ""}
 
                 >
-                   
+
                     <MdCancel className="text-red-500" />
 
 
@@ -168,7 +168,7 @@ const UserListTable = () => {
         const tokenPromise = someAsyncTokenFetchFunction()
         const data = {
             id: userId,
-            status:remark,
+            status: remark,
             kycRemakrs: roleNameRef?.current?.value
         }
 
@@ -214,9 +214,7 @@ const UserListTable = () => {
     }
 
 
-    const handleRejectKyc = (status:string,row: any) => {
-
-
+    const handleRejectKyc = (status: string, row: any) => {
         setRemark(status)
         setUserId(row?._id)
         setIsModalOpen(true);
@@ -224,6 +222,7 @@ const UserListTable = () => {
 
     const handleClose = () => {
         setIsModalOpen(false)
+
     }
 
     const handleDeactivateActivate = (id: string | number, status: boolean): void => {

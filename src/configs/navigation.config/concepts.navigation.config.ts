@@ -185,7 +185,7 @@ const conceptsNavigationConfig: NavigationTree[] = [
             {
                 key: 'concepts.group.groupCreate',
                 path: `${CONCEPTS_PREFIX_PATH}/group/group-create`,
-                title: 'group Create',
+                title: 'Group Create',
                 translateKey: 'nav.conceptsGroup.groupCreate',
                 icon: 'groupCreate',
                 type: NAV_ITEM_TYPE_ITEM,
@@ -202,7 +202,7 @@ const conceptsNavigationConfig: NavigationTree[] = [
             {
                 key: 'concepts.group.groupEdit',
                 path: `${CONCEPTS_PREFIX_PATH}/group/group-edit/1`,
-                title: 'group Edit',
+                title: 'Group Edit',
                 translateKey: 'nav.conceptsGroup.groupEdit',
                 icon: 'groupEdit',
                 type: NAV_ITEM_TYPE_ITEM,

@@ -99,6 +99,10 @@ const InquiryListTable = () => {
             {
                 header: 'Message',
                 accessorKey: 'message',
+                cell: (props: any) => {
+                    const message = props.row.original.message;
+                    return <textarea readOnly value={message} rows={4} cols={30} />;
+                },
             },
             {
                 header: 'Registration Date',

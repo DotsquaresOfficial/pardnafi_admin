@@ -17,11 +17,11 @@ type FormSchema = {
 }
 
 const channelList = [
-    'Retail Stores',
-    'Online Retailers',
-    'Resellers',
-    'Mobile Apps',
-    'Direct Sales',
+    'APPROVED',
+    'REJECTED',
+    'PENDING_REVIEW',
+    'NOT_SUBMITTED',
+    
 ]
 
 const validationSchema: ZodType<FormSchema> = z.object({

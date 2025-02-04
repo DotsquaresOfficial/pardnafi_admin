@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useToken } from '@/store/authStore'
 import Notification from '@/components/ui/Notification'
 import toast from '@/components/ui/toast'
-
+import { confirmAlert } from "react-confirm-alert";
 import type { PageData, Terms } from '../types';
 import { pageCreate, getAllPage } from '@/services/TermsAndConditionsServices';
 import { term_condition } from '@/constants/slugType';
@@ -95,6 +95,26 @@ const TermListTable = () => {
 
     };
 
+      const handlePublishTerms = (): void => {
+            const message =
+                "Are you sure to do publish this Terms and Conditions"
+    
+    
+            confirmAlert({
+                title: "Confirm to submit",
+                message: message,
+                buttons: [
+                    {
+                        label: "Yes",
+                        onClick: () => handleSave(),
+                    },
+                    {
+                        label: "No",
+                    },
+                ],
+            });
+        };
+
 
     return (
         <div >
@@ -112,10 +132,10 @@ const TermListTable = () => {
                     <ReactQuill value={description} onChange={handleDescriptionContentChange} />
                 </div>
                 <button
-                    onClick={() => handleSave()}
+                    onClick={() => handlePublishTerms()}
                     className="mt-4 bg-blue-500 text-white p-2 rounded"
                 >
-                    Save Changes
+                    Publish
                 </button>
             </div>
 

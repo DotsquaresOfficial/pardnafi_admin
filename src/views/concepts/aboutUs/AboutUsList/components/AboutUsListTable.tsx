@@ -7,13 +7,13 @@ import toast from '@/components/ui/toast'
 import type { PageData } from '../../../termsAndConditions/TermsList/types';
 import { pageCreate, getAllPage } from '@/services/TermsAndConditionsServices';
 import { about_us } from '@/constants/slugType';
-
+import { confirmAlert } from "react-confirm-alert";
 const AboutUsListTable = () => {
     const { token } = useToken()
     const [title, setTitle] = useState('');
     const [subTitle, setSubTitle] = useState('');
     const [description, setDescription] = useState('');
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const someAsyncTokenFetchFunction = async (): Promise<string | null> => {
         return Promise.resolve(token);
     };
@@ -40,6 +40,26 @@ const AboutUsListTable = () => {
     };
     const handleDescriptionContentChange = (value: string) => {
         setDescription(value);
+    };
+
+    const handlePublishAboutUs = (): void => {
+        const message = 
+             "Are you sure to do publish this About us"
+           
+
+        confirmAlert({
+            title: "Confirm to submit",
+            message: message,
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: () => handleSave(),
+                },
+                {
+                    label: "No",
+                },
+            ],
+        });
     };
 
     const handleSave = async () => {
@@ -83,10 +103,10 @@ const AboutUsListTable = () => {
                     <ReactQuill value={description} onChange={handleDescriptionContentChange} />
                 </div>
                 <button
-                    onClick={() => handleSave()}
+                    onClick={() => handlePublishAboutUs()}
                     className="mt-4 bg-blue-500 text-white p-2 rounded"
                 >
-                    Save Changes
+                    Publish
                 </button>
             </div>
 

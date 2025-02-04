@@ -5,7 +5,7 @@ import { useSessionUser } from '@/store/authStore'
 import { Link } from 'react-router-dom'
 import { PiUserDuotone, PiSignOutDuotone } from 'react-icons/pi'
 import { useAuth } from '@/auth'
-
+import { confirmAlert } from "react-confirm-alert";
 type DropdownList = {
     label: string
     path: string
@@ -27,6 +27,25 @@ const _UserDropdown = () => {
     const avatarProps = {
         ...(avatar ? { src: avatar } : { icon: <PiUserDuotone /> }),
     }
+    const logoutHandler = (): void => {
+        const message = 
+             "Are you sure to do"
+           
+
+        confirmAlert({
+            title: "Confirm to submit",
+            message: message,
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: () => handleSignOut(),
+                },
+                {
+                    label: "Cancel",
+                },
+            ],
+        });
+    };
 
     return (
         <Dropdown
@@ -70,7 +89,7 @@ const _UserDropdown = () => {
             <Dropdown.Item
                 eventKey="Sign Out"
                 className="gap-2"
-                onClick={handleSignOut}
+                onClick={logoutHandler}
             >
                 <span className="text-xl">
                     <PiSignOutDuotone />

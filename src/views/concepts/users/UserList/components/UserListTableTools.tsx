@@ -2,6 +2,7 @@ import useUserList from '../hooks/useUserList'
 import UserListSearch from './UserListSearch'
 // import CustomerTableFilter from './CustomerListTableFilter'
 import cloneDeep from 'lodash/cloneDeep'
+import UserListTableFilter from './UserListTableFilter'
 
 const UserListTableTools = () => {
     const { tableData, setTableData } = useUserList()
@@ -22,7 +23,7 @@ const UserListTableTools = () => {
     return (
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
             <UserListSearch onInputChange={handleInputChange} />
-            {/* <CustomerTableFilter /> */}
+            <UserListTableFilter />
         </div>
     )
 }

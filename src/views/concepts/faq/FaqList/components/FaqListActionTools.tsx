@@ -19,7 +19,7 @@ const FaqListActionTools = () => {
                 icon={<TbUserPlus className="text-xl" />}
                 onClick={() => navigate('/concepts/faq/faq-create')}
             >
-                Add new
+                Add FAQ
             </Button>
         </div>
     )

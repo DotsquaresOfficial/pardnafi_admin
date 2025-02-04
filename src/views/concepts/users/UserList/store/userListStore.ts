@@ -12,16 +12,20 @@ export const initialTableData: TableQueries = {
     },
 }
 
+console.log(initialTableData,"initialTableData====")
+
 export const initialFilterData = {
     purchasedProducts: '',
     purchaseChannel: [
-        'Retail Stores',
-        'Online Retailers',
-        'Resellers',
-        'Mobile Apps',
-        'Direct Sales',
+        'APPROVED',
+        'REJECTED',
+        'PENDING_REVIEW',
+        'NOT_SUBMITTED',
+    
     ],
 }
+
+console.log(initialFilterData,"initialFilterData====")
 
 export type CustomersListState = {
     tableData: TableQueries
@@ -42,6 +46,7 @@ const initialState: CustomersListState = {
     selectedCustomer: [],
 }
 
+console.log(initialState,"initialState===")
 export const useUserListStore = create<
     CustomersListState & CustomersListAction
 >((set) => ({
@@ -68,3 +73,5 @@ export const useUserListStore = create<
         }),
     setSelectAllCustomer: (row) => set(() => ({ selectedCustomer: row })),
 }))
+
+console.log(useUserListStore,"useUserListStore0000")
