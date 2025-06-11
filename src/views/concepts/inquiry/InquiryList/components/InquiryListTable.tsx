@@ -105,7 +105,7 @@ const InquiryListTable = () => {
                 },
             },
             {
-                header: 'Registration Date',
+                header: 'Inquiry Date',
                 accessorKey: 'createdAt',
                 cell: (props: any) => {
                     const date = new Date(props.row.original.createdAt);

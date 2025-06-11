@@ -93,12 +93,13 @@ const IndeterminateCheckbox = (props: IndeterminateCheckboxProps) => {
     }
 
     return (
-        <Checkbox
-            ref={ref}
-            className="mb-0"
-            onChange={(_, e) => handleChange(e)}
-            {...rest}
-        />
+        <></>
+        // <Checkbox
+        //     ref={ref}
+        //     className="mb-0"
+        //     onChange={(_, e) => handleChange(e)}
+        //     {...rest}
+        // />
     )
 }
 

@@ -57,7 +57,7 @@ const UserListTableFilter = () => {
             <Button icon={<TbFilter />} onClick={() => openDialog()}>
                 Filter
             </Button>
-            <Dialog
+            {/* <Dialog
                 isOpen={dialogIsOpen}
                 onClose={onDialogClose}
                 onRequestClose={onDialogClose}
@@ -111,7 +111,7 @@ const UserListTableFilter = () => {
                         </Button>
                     </div>
                 </Form>
-            </Dialog>
+            </Dialog> */}
         </>
     )
 }

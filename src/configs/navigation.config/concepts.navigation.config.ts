@@ -44,7 +44,7 @@ const conceptsNavigationConfig: NavigationTree[] = [
             {
                 key: 'concepts.users.userEdit',
                 path: `${CONCEPTS_PREFIX_PATH}/users/user-edit/1`,
-                title: 'user Edit',
+                title: 'User Edit',
                 translateKey: 'nav.conceptsUsers.userEdit',
                 icon: 'userEdit',
                 type: NAV_ITEM_TYPE_ITEM,
@@ -79,75 +79,75 @@ const conceptsNavigationConfig: NavigationTree[] = [
         ],
     },
 
-    {
-        key: 'kycMenuItem',
-        path: '',
-        title: 'Kyc Management',
-        translateKey: 'nav.conceptsKyc.kyc',
-        icon: 'kycMenuItem',
-        type: NAV_ITEM_TYPE_COLLAPSE,
-        authority: [ADMIN, USER],
-        meta: {
-            description: {
-                translateKey: 'nav.conceptsKyc.kycDesc',
-                label: 'User management',
-            },
-        },
-        subMenu: [
-            {
-                key: 'concepts.kyc.kycList',
-                path: `${CONCEPTS_PREFIX_PATH}/kyc/kyc-list`,
-                title: 'Kyc List',
-                translateKey: 'nav.conceptsKyc.kycList',
-                icon: 'kycList',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [ADMIN, USER],
-                meta: {
-                    description: {
-                        translateKey:
-                            'nav.conceptsKyc.kycListDesc',
-                        label: 'List of all kyc',
-                    },
-                },
-                subMenu: [],
-            },
-            {
-                key: 'concepts.kyc.kycEdit',
-                path: `${CONCEPTS_PREFIX_PATH}/kyc/kyc-edit/1`,
-                title: 'Kyc Edit',
-                translateKey: 'nav.conceptskyc.kycEdit',
-                icon: 'kycEdit',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [ADMIN, USER],
-                meta: {
-                    description: {
-                        translateKey:
-                            'nav.conceptsKyc.kycEditDesc',
-                        label: 'Edit kyc info',
-                    },
-                },
-                subMenu: [],
-            },
+    // {
+    //     key: 'kycMenuItem',
+    //     path: '',
+    //     title: 'Kyc Management',
+    //     translateKey: 'nav.conceptsKyc.kyc',
+    //     icon: 'kycMenuItem',
+    //     type: NAV_ITEM_TYPE_COLLAPSE,
+    //     authority: [ADMIN, USER],
+    //     meta: {
+    //         description: {
+    //             translateKey: 'nav.conceptsKyc.kycDesc',
+    //             label: 'User management',
+    //         },
+    //     },
+    //     subMenu: [
+    //         {
+    //             key: 'concepts.kyc.kycList',
+    //             path: `${CONCEPTS_PREFIX_PATH}/kyc/kyc-list`,
+    //             title: 'Kyc List',
+    //             translateKey: 'nav.conceptsKyc.kycList',
+    //             icon: 'kycList',
+    //             type: NAV_ITEM_TYPE_ITEM,
+    //             authority: [ADMIN, USER],
+    //             meta: {
+    //                 description: {
+    //                     translateKey:
+    //                         'nav.conceptsKyc.kycListDesc',
+    //                     label: 'List of all kyc',
+    //                 },
+    //             },
+    //             subMenu: [],
+    //         },
+    //         {
+    //             key: 'concepts.kyc.kycEdit',
+    //             path: `${CONCEPTS_PREFIX_PATH}/kyc/kyc-edit/1`,
+    //             title: 'Kyc Edit',
+    //             translateKey: 'nav.conceptskyc.kycEdit',
+    //             icon: 'kycEdit',
+    //             type: NAV_ITEM_TYPE_ITEM,
+    //             authority: [ADMIN, USER],
+    //             meta: {
+    //                 description: {
+    //                     translateKey:
+    //                         'nav.conceptsKyc.kycEditDesc',
+    //                     label: 'Edit kyc info',
+    //                 },
+    //             },
+    //             subMenu: [],
+    //         },
 
-            {
-                key: 'concepts.kyc.kycDetails',
-                path: `${CONCEPTS_PREFIX_PATH}/kyc/kyc-details/1`,
-                title: 'Kyc Details',
-                translateKey: 'nav.conceptskyc.kycDetails',
-                icon: 'kycDetails',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [ADMIN, USER],
-                meta: {
-                    description: {
-                        translateKey:
-                            'nav.conceptskyc.kycDetailsDesc',
-                        label: 'Detailed kyc info',
-                    },
-                },
-                subMenu: [],
-            },
-        ],
-    },
+    //         {
+    //             key: 'concepts.kyc.kycDetails',
+    //             path: `${CONCEPTS_PREFIX_PATH}/kyc/kyc-details/1`,
+    //             title: 'Kyc Details',
+    //             translateKey: 'nav.conceptskyc.kycDetails',
+    //             icon: 'kycDetails',
+    //             type: NAV_ITEM_TYPE_ITEM,
+    //             authority: [ADMIN, USER],
+    //             meta: {
+    //                 description: {
+    //                     translateKey:
+    //                         'nav.conceptskyc.kycDetailsDesc',
+    //                     label: 'Detailed kyc info',
+    //                 },
+    //             },
+    //             subMenu: [],
+    //         },
+    //     ],
+    // },
 
     {
         key: 'groupMenuItem',

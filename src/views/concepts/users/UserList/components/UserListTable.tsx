@@ -100,7 +100,7 @@ const ActionColumn = ({
                     {isActive ? <AiOutlineUnlock /> : <TbLock />}
                 </div>
             </Tooltip>
-            <Tooltip title="Approve">
+           {row.kycStatus == KycStatus.APPROVED|| row.kycStatus == KycStatus.PENDING_REVIEW?<Tooltip title="Approve">
                 <div
                     className={`text-xl cursor-pointer select-none font-semibold`}
                     role="button"
@@ -113,8 +113,8 @@ const ActionColumn = ({
 
 
                 </div>
-            </Tooltip>
-            <Tooltip title="Reject">
+            </Tooltip>:""} 
+            {row.kycStatus == KycStatus.REJECTED|| row.kycStatus == KycStatus.PENDING_REVIEW?<Tooltip title="Reject">
                 <div
                     className={`text-xl cursor-pointer select-none font-semibold`}
                     role="button"
@@ -127,7 +127,7 @@ const ActionColumn = ({
 
                 </div>
             </Tooltip>
-
+:""}
 
 
 

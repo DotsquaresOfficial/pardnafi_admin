@@ -50,7 +50,7 @@ const FaqEdit = () => {
     const handleConfirmDiscard = () => {
         setDiscardConfirmationOpen(true)
         toast.push(
-            <Notification type="success">Faq discardd!</Notification>,
+            <Notification type="success">Faq discarded!</Notification>,
             { placement: 'top-center' },
         )
         navigate('/concepts/faq/faq-list')

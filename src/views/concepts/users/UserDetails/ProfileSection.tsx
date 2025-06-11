@@ -67,7 +67,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                         {user_details?.email ?? 'N/A'}
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    {/* <div className="flex items-center justify-between">
                         <span className="font-semibold">Phone:-</span>
                         {user_details?.phoneNumber ?? 'N/A'}
                     </div>
@@ -85,7 +85,7 @@ const ProfileSection = ({ data }: ProfileSectionProps) => {
                     <div className="flex items-center justify-between">
                         <span className="font-semibold">Designation:-</span>
                         {user_details?.designation ?? 'N/A'}
-                    </div>
+                    </div> */}
 
                     <div className="flex items-center justify-between">
                         <span className="font-semibold">KYC Status:-</span>
