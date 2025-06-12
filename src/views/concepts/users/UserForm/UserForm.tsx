@@ -23,13 +23,13 @@ type CustomerFormProps = {
 const validationSchema: ZodType<UserFormSchema> = z.object({
     firstName: z.string().min(1, { message: 'First name required' }),
     lastName: z.string().min(1, { message: 'Last name required' }),
-    address: z.string().min(1, { message: 'Addrress required' }),
+    // address: z.string().min(1, { message: 'Addrress required' }),
 
-    phoneNumber: z
-        .string()
-        .min(10, { message: 'Phone number must be at least 10 digits' })
-        .regex(/^\d+$/, { message: 'Phone number must contain only digits' }) // Validate phone number is digits only
-    ,
+    // phoneNumber: z
+    //     .string()
+    //     .min(10, { message: 'Phone number must be at least 10 digits' })
+    //     .regex(/^\d+$/, { message: 'Phone number must contain only digits' }) // Validate phone number is digits only
+    // ,
     // country: z.string().min(1, { message: 'Please select a country' }),
 
     // postcode: z.string().min(1, { message: 'Postcode required' }),
@@ -74,27 +74,44 @@ const UserForm = (props: CustomerFormProps) => {
 
     const onSubmit = (values: UserFormSchema) => {
 
-
+console.log(values,"values")
         onFormSubmit?.(values)
     }
 
     return (
+        // <Form
+        //     className="flex w-full h-full"
+        //     containerClassName="flex flex-col w-full justify-between"
+        //     onSubmit={handleSubmit(onSubmit)}
+        // >
+        //     <Container>
+        //         <div className="flex flex-col md:flex-row gap-4">
+        //             <div className="gap-4 flex flex-col flex-auto">
+        //                 <OverviewSection control={control} errors={errors} />
+
+        //             </div>
+
+        //         </div>
+        //     </Container>
+        //     <BottomStickyBar>{children}</BottomStickyBar>
+        // </Form>
         <Form
-            className="flex w-full h-full"
-            containerClassName="flex flex-col w-full justify-between"
-            onSubmit={handleSubmit(onSubmit)}
-        >
-            <Container>
-                <div className="flex flex-col md:flex-row gap-4">
-                    <div className="gap-4 flex flex-col flex-auto">
-                        <OverviewSection control={control} errors={errors} />
+    className="flex w-full h-full"
+    containerClassName="flex flex-col w-full justify-between"
+    onSubmit={handleSubmit(onSubmit)}
+>
+    <Container>
+        <div className="flex flex-col md:flex-row gap-4">
+            <div className="gap-4 flex flex-col flex-auto">
+                <OverviewSection control={control} errors={errors} />
+            </div>
+        </div>
+    </Container>
 
-                    </div>
+    {/* ✅ Now the submit button will work */}
+    <BottomStickyBar>{children}</BottomStickyBar>
+</Form>
 
-                </div>
-            </Container>
-            <BottomStickyBar>{children}</BottomStickyBar>
-        </Form>
     )
 }
 

@@ -21,13 +21,13 @@ const UserEdit = () => {
 
     const navigate = useNavigate()
 
-  
+
     const { setValue } = useForm({
         defaultValues: {
             avatar: "", // default value for avatar field
         },
     });
- 
+
 
     const { data, isLoading, error } = useSWR(
         id ? [`/user/get-user-by-id/${id}`, { id: id as string }] : null,
@@ -37,7 +37,8 @@ const UserEdit = () => {
             revalidateIfStale: false,
         }
     );
-   
+    console.log(isLoading, "isLoading", data, "data")
+
 
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false)
     const [isSubmiting, setIsSubmiting] = useState(false)
@@ -53,13 +54,14 @@ const UserEdit = () => {
 
 
     const handleFormSubmit = async (values: UserFormSchema) => {
-
+        console.log("call==")
         const avatar = localStorage.getItem("avatar")
 
         setIsSubmiting(true)
         await sleep(800)
         const tokenPromise = someAsyncTokenFetchFunction()
         const resp = await updateUsers({ ...values, avatar, id }, tokenPromise)
+        console.log(resp, "resp")
         if (resp?.success) {
             setIsSubmiting(false)
             toast.push(
@@ -153,6 +155,7 @@ const UserEdit = () => {
                                     </Button>
                                     <Button
                                         variant="solid"
+                                        // onClick={() => { handleFormSubmit(getDefaultValues() as UserFormSchema) }}
                                         type="submit"
                                         loading={isSubmiting}
                                     >

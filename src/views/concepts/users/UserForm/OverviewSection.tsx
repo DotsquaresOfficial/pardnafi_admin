@@ -28,17 +28,6 @@ const { Control } = components
 
 const OverviewSection = ({ control, errors }: OverviewSectionProps) => {
 
-
-
-
-
-
-
-
-
-
-
-
     const { token } = useToken()
     const someAsyncTokenFetchFunction = async (): Promise<string | null> => {
         return Promise.resolve(token);

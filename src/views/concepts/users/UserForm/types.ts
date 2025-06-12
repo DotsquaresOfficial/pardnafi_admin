@@ -1,15 +1,17 @@
 import type { Control, FieldErrors } from 'react-hook-form'
 
 export type OverviewFields = {
+    id?: string,
+    _id?: string,
     firstName?: string
     lastName?: string
     email?: string,
-    avatar?:string,
-    address?:string,
+    avatar?: string,
+    address?: string,
     dialCode?: string
     phoneNumber?: string
     img?: string,
-    isActive?:boolean,
+    isActive?: boolean,
 }
 
 export type AddressFields = {
@@ -30,7 +32,7 @@ export type TagsFields = {
 export type AccountField = {
     banAccount?: boolean
     accountVerified?: boolean
-    isActive:boolean,
+    isActive: boolean,
 }
 
 export type UserFormSchema = OverviewFields
