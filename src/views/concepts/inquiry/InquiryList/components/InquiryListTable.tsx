@@ -87,7 +87,7 @@ const InquiryListTable = () => {
                     return <NameColumn row={row} />;
                 },
             },
-    
+
             {
                 header: 'Email Address',
                 accessorKey: 'email',
@@ -114,14 +114,14 @@ const InquiryListTable = () => {
                         month: 'long',
                         day: 'numeric',
                     });
-    
+
                     return <span>{formattedDate}</span>;
                 },
             },
         ],
         [] // eslint-disable-next-line react-hooks/exhaustive-deps
     );
-    
+
 
     const handleSetTableData = (data: TableQueries) => {
         setTableData(data)
@@ -161,18 +161,23 @@ const InquiryListTable = () => {
             setSelectAllCustomer([])
         }
     }
-
+    const paginatedData = (list: any[], page: number, pageSize: number) => {
+        const start = (page - 1) * pageSize;
+        const end = page * pageSize;
+        return list.slice(start, end);
+    };
     return (
         <DataTable
             selectable
             columns={columns}
-            data={inquiryList}
+            data={paginatedData(inquiryList, tableData?.pageIndex as number, tableData?.pageSize as number)}
+
             noData={!isLoading && inquiryList.length === 0}
             skeletonAvatarColumns={[0]}
             skeletonAvatarProps={{ width: 28, height: 28 }}
             loading={isLoading}
             pagingData={{
-                total: inquiryListTotal,
+                total: inquiryList.length,
                 pageIndex: tableData.pageIndex as number,
                 pageSize: tableData.pageSize as number,
             }}
@@ -180,7 +185,9 @@ const InquiryListTable = () => {
                 selectedCustomer.some((selected) => selected._id === row._id)
             }
             onPaginationChange={handlePaginationChange}
-            onSelectChange={handleSelectChange}
+            onSelectChange={(pageSize) =>
+                setTableData({ pageIndex: 1, pageSize: pageSize || 10 })
+            }
             onSort={handleSort}
             onCheckBoxChange={handleRowSelect}
             onIndeterminateCheckBoxChange={handleAllRowSelect}

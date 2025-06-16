@@ -28,7 +28,8 @@ export default function useUserList() {
 
     const userList = data?.users || []
 
-    const userListTotal = data?.total || 0
+    const userListTotal = data?.users?.length || 0
+   
 
 
     return {

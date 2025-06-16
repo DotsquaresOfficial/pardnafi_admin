@@ -29,18 +29,11 @@ import { Button, FormItem, Input } from '@/components/ui'
 import { updateKycStatus } from '@/services/KycService'
 import { set } from 'lodash'
 
-
-
-
 const { token } = useToken()
-
 
 const someAsyncTokenFetchFunction = async (): Promise<string | null> => {
     return Promise.resolve(token);  // Wrap the token in a resolved Promise
 };
-
-
-
 const NameColumn = ({ row }: { row: User }) => {
     return (
         <div className="flex items-center">
@@ -100,7 +93,7 @@ const ActionColumn = ({
                     {isActive ? <AiOutlineUnlock /> : <TbLock />}
                 </div>
             </Tooltip>
-           {row.kycStatus == KycStatus.APPROVED|| row.kycStatus == KycStatus.PENDING_REVIEW?<Tooltip title="Approve">
+            {row.kycStatus == KycStatus.APPROVED || row.kycStatus == KycStatus.PENDING_REVIEW ? <Tooltip title="Approve">
                 <div
                     className={`text-xl cursor-pointer select-none font-semibold`}
                     role="button"
@@ -113,8 +106,8 @@ const ActionColumn = ({
 
 
                 </div>
-            </Tooltip>:""} 
-            {row.kycStatus == KycStatus.REJECTED|| row.kycStatus == KycStatus.PENDING_REVIEW?<Tooltip title="Reject">
+            </Tooltip> : ""}
+            {row.kycStatus == KycStatus.REJECTED || row.kycStatus == KycStatus.PENDING_REVIEW ? <Tooltip title="Reject">
                 <div
                     className={`text-xl cursor-pointer select-none font-semibold`}
                     role="button"
@@ -127,7 +120,7 @@ const ActionColumn = ({
 
                 </div>
             </Tooltip>
-:""}
+                : ""}
 
 
 
@@ -143,10 +136,6 @@ const UserListTable = () => {
     const [userId, setUserId] = useState("");
     const [remark, setRemark] = useState("");
 
-
-
-
-
     const {
         userList,
         userListTotal,
@@ -157,12 +146,9 @@ const UserListTable = () => {
         setSelectedCustomer,
         selectedCustomer,
     } = useUserList()
+    console.log(userList, "userList")
 
     const roleNameRef = useRef<HTMLInputElement>(null)
-
-
-
-
 
     const updateKycHandler = async () => {
         const tokenPromise = someAsyncTokenFetchFunction()
@@ -201,9 +187,6 @@ const UserListTable = () => {
 
         setFilterData,
     } = useUserListStore((state) => state)
-
-
-
     const handleEdit = (customer: User) => {
         navigate(`/concepts/users/user-edit/${customer._id}`)
         window.location.reload()
@@ -212,19 +195,14 @@ const UserListTable = () => {
     const handleViewDetails = (customer: User) => {
         navigate(`/concepts/users/user-details/${customer._id}`)
     }
-
-
     const handleRejectKyc = (status: string, row: any) => {
         setRemark(status)
         setUserId(row?._id)
         setIsModalOpen(true);
     };
-
     const handleClose = () => {
         setIsModalOpen(false)
-
     }
-
     const handleDeactivateActivate = (id: string | number, status: boolean): void => {
         const message = status
             ? "Are you sure to do Activate this user?"
@@ -409,18 +387,6 @@ const UserListTable = () => {
         }
     }
 
-    const handlePaginationChange = (page: number) => {
-        const newTableData = cloneDeep(tableData)
-        newTableData.pageIndex = page
-        handleSetTableData(newTableData)
-    }
-
-    const handleSelectChange = (value: number) => {
-        const newTableData = cloneDeep(tableData)
-        newTableData.pageSize = Number(value)
-        newTableData.pageIndex = 1
-        handleSetTableData(newTableData)
-    }
 
     const handleSort = (sort: OnSortParam) => {
         const newTableData = cloneDeep(tableData)
@@ -441,18 +407,34 @@ const UserListTable = () => {
         }
     }
 
+    const paginatedData = (list: any[], page: number, pageSize: number) => {
+        const start = (page - 1) * pageSize;
+        const end = page * pageSize;
+        return list.slice(start, end);
+    };
+    const handlePaginationChange = (page: number) => {
+        setTableData({
+            ...tableData,
+            pageIndex: page
+        });
+    };
+
+
+
     return (
         <>
+
             <DataTable
                 selectable
                 columns={columns}
-                data={userList}
+                data={paginatedData(userList, tableData?.pageIndex as number, tableData?.pageSize as number)}
+
                 noData={!isLoading && userList.length === 0}
                 skeletonAvatarColumns={[0]}
                 skeletonAvatarProps={{ width: 28, height: 28 }}
                 loading={isLoading}
                 pagingData={{
-                    total: userListTotal,
+                    total: userList.length,
                     pageIndex: tableData.pageIndex as number,
                     pageSize: tableData.pageSize as number,
                 }}
@@ -460,12 +442,13 @@ const UserListTable = () => {
                     selectedCustomer.some((selected) => selected._id === row._id)
                 }
                 onPaginationChange={handlePaginationChange}
-                onSelectChange={handleSelectChange}
+                onSelectChange={(pageSize) =>
+                    setTableData({ pageIndex: 1, pageSize: pageSize || 10 })
+                }
                 onSort={handleSort}
                 onCheckBoxChange={handleRowSelect}
                 onIndeterminateCheckBoxChange={handleAllRowSelect}
             />
-
             <Dialog
                 isOpen={isModalOpen}
                 width={500}

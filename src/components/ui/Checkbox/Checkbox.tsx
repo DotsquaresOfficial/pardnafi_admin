@@ -119,7 +119,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
 
     return (
         <label ref={labelRef} className={labelClass}>
-            <span className="checkbox-wrapper h-5 relative">
+            {/* <span className="checkbox-wrapper h-5 relative">
                 <input
                     ref={ref}
                     className={classNames(
@@ -147,7 +147,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>((props, ref) => {
                         />
                     </svg>
                 </>
-            </span>
+            </span> */}
             {children ? (
                 <span className={classNames(disabled ? 'opacity-50' : '')}>
                     {children}

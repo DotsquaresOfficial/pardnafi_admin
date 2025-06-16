@@ -30,9 +30,9 @@ export default function useInquiryList() {
     const inquiryList = data?.tickets || []
 
 
-    const inquiryListTotal = data?.total || 0
+    const inquiryListTotal = data?.tickets?.length || 0
 
-
+    console.log(inquiryListTotal,"inquiryListTotal")
     return {
         inquiryList,
         inquiryListTotal,

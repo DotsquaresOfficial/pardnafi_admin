@@ -36,7 +36,7 @@ export type OnSortParam = { order: 'asc' | 'desc' | ''; key: string | number }
 type DataTableProps<T> = {
     columns: ColumnDef<T>[]
     customNoDataIcon?: ReactNode
-    data?: unknown[]
+    data?: T[]
     loading?: boolean
     noData?: boolean
     onCheckBoxChange?: (checked: boolean, row: T) => void
@@ -83,7 +83,6 @@ const IndeterminateCheckbox = (props: IndeterminateCheckboxProps) => {
         if (typeof indeterminate === 'boolean' && ref.current) {
             ref.current.indeterminate = !rest.checked && indeterminate
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ref, indeterminate])
 
     const handleChange = (e: CheckBoxChangeEvent) => {
@@ -93,13 +92,12 @@ const IndeterminateCheckbox = (props: IndeterminateCheckboxProps) => {
     }
 
     return (
-        <></>
-        // <Checkbox
-        //     ref={ref}
-        //     className="mb-0"
-        //     onChange={(_, e) => handleChange(e)}
-        //     {...rest}
-        // />
+        <Checkbox
+            ref={ref}
+            className="mb-0"
+            onChange={(_, e) => handleChange(e)}
+            {...rest}
+        />
     )
 }
 
@@ -108,10 +106,10 @@ export type DataTableResetHandle = {
     resetSelected: () => void
 }
 
-function _DataTable<T>(
+const DataTableComponent = <T,>(
     props: DataTableProps<T>,
-    ref: ForwardedRef<DataTableResetHandle>,
-) {
+    ref: ForwardedRef<DataTableResetHandle>
+) => {
     const {
         skeletonAvatarColumns,
         columns: columnsProp = [],
@@ -128,7 +126,7 @@ function _DataTable<T>(
         selectable = false,
         skeletonAvatarProps,
         pagingData = {
-            total: 0,
+            total: data.length,
             pageIndex: 1,
             pageSize: 10,
         },
@@ -137,47 +135,33 @@ function _DataTable<T>(
         ...rest
     } = props
 
-    const { pageSize, pageIndex, total } = pagingData
+    const isControlledPagination = !!pagingData
+    const isControlledSorting = !!onSort
 
-    const [sorting, setSorting] = useState<ColumnSort[] | null>(null)
+    const [internalPagination, setInternalPagination] = useState({
+        pageIndex: (pagingData.pageIndex || 1) - 1,
+        pageSize: pagingData.pageSize || 10,
+    })
+
+    const [sorting, setSorting] = useState<ColumnSort[]>([])
 
     const pageSizeOption = useMemo(
-        () =>
-            pageSizes.map((number) => ({
-                value: number,
-                label: `${number} / page`,
-            })),
+        () => pageSizes.map((number) => ({
+            value: number,
+            label: `${number} / page`,
+        })),
         [pageSizes],
     )
 
     useEffect(() => {
-        if (Array.isArray(sorting)) {
-            const sortOrder =
-                sorting.length > 0 ? (sorting[0].desc ? 'desc' : 'asc') : ''
-            const id = sorting.length > 0 ? sorting[0].id : ''
+        if (isControlledSorting && sorting.length > 0) {
+            const sortOrder = sorting[0].desc ? 'desc' : 'asc'
+            const id = sorting[0].id
             onSort?.({ order: sortOrder, key: id })
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sorting])
-
-    const handleIndeterminateCheckBoxChange = (
-        checked: boolean,
-        rows: Row<T>[],
-    ) => {
-        if (!loading) {
-            onIndeterminateCheckBoxChange?.(checked, rows)
-        }
-    }
-
-    const handleCheckBoxChange = (checked: boolean, row: T) => {
-        if (!loading) {
-            onCheckBoxChange?.(checked, row)
-        }
-    }
+    }, [sorting, isControlledSorting, onSort])
 
     const finalColumns: ColumnDef<T>[] = useMemo(() => {
-        const columns = columnsProp
-
         if (selectable) {
             return [
                 {
@@ -187,17 +171,15 @@ function _DataTable<T>(
                         <IndeterminateCheckbox
                             checked={
                                 indeterminateCheckboxChecked
-                                    ? indeterminateCheckboxChecked(
-                                          table.getRowModel().rows,
-                                      )
+                                    ? indeterminateCheckboxChecked(table.getRowModel().rows)
                                     : table.getIsAllRowsSelected()
                             }
                             indeterminate={table.getIsSomeRowsSelected()}
                             onChange={table.getToggleAllRowsSelectedHandler()}
                             onIndeterminateCheckBoxChange={(e) => {
-                                handleIndeterminateCheckBoxChange(
+                                onIndeterminateCheckBoxChange?.(
                                     e.target.checked,
-                                    table.getRowModel().rows,
+                                    table.getRowModel().rows
                                 )
                             }}
                         />
@@ -213,45 +195,58 @@ function _DataTable<T>(
                             indeterminate={row.getIsSomeSelected()}
                             onChange={row.getToggleSelectedHandler()}
                             onCheckBoxChange={(e) =>
-                                handleCheckBoxChange(
-                                    e.target.checked,
-                                    row.original,
-                                )
+                                onCheckBoxChange?.(e.target.checked, row.original)
                             }
                         />
                     ),
                 },
-                ...columns,
+                ...columnsProp,
             ]
         }
-        return columns
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [columnsProp, selectable, loading, checkboxChecked])
+        return columnsProp
+    }, [columnsProp, selectable, checkboxChecked, indeterminateCheckboxChecked,
+        onCheckBoxChange, onIndeterminateCheckBoxChange])
 
     const table = useReactTable({
         data,
-        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-        columns: finalColumns as ColumnDef<unknown | object | any[], any>[],
+        columns: finalColumns,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
         getSortedRowModel: getSortedRowModel(),
-        manualPagination: true,
-        manualSorting: true,
-        onSortingChange: (sorter) => {
-            setSorting(sorter as ColumnSort[])
+        manualPagination: isControlledPagination,
+        manualSorting: isControlledSorting,
+        onPaginationChange: isControlledPagination ? undefined : (updater) => {
+            if (typeof updater === 'function') {
+                setInternalPagination(prev => {
+                    const newValue = updater(prev)
+                    table.setPageSize(newValue.pageSize)
+                    table.setPageIndex(newValue.pageIndex)
+                    return newValue
+                })
+            }
         },
+        onSortingChange: setSorting,
         state: {
-            sorting: sorting as ColumnSort[],
+            pagination: isControlledPagination 
+                ? {
+                    pageIndex: (pagingData.pageIndex || 1) - 1,
+                    pageSize: pagingData.pageSize || 10,
+                }
+                : internalPagination,
+            sorting,
         },
+        pageCount: isControlledPagination 
+            ? Math.ceil((pagingData.total || 0) / (pagingData.pageSize || 10))
+            : undefined,
     })
 
     const resetSorting = () => {
-        table.resetSorting()
+        setSorting([])
     }
 
     const resetSelected = () => {
-        table.resetRowSelection(true)
+        table.resetRowSelection()
     }
 
     useImperativeHandle(ref, () => ({
@@ -260,17 +255,45 @@ function _DataTable<T>(
     }))
 
     const handlePaginationChange = (page: number) => {
-        if (!loading) {
-            resetSelected()
+        if (loading) return
+        
+        const zeroBasedPage = page - 1
+        
+        if (isControlledPagination) {
             onPaginationChange?.(page)
+        } else {
+            setInternalPagination(prev => ({
+                ...prev,
+                pageIndex: zeroBasedPage
+            }))
         }
     }
 
     const handleSelectChange = (value?: number) => {
-        if (!loading) {
-            onSelectChange?.(Number(value))
+        if (loading || !value) return
+        
+        if (isControlledPagination) {
+            onSelectChange?.(value)
+        } else {
+            setInternalPagination({
+                pageIndex: 0,
+                pageSize: value
+            })
         }
     }
+
+    const currentPageIndex = isControlledPagination 
+        ? pagingData.pageIndex || 1
+        : internalPagination.pageIndex + 1
+        
+    const currentPageSize = isControlledPagination 
+        ? pagingData.pageSize || 10
+        : internalPagination.pageSize
+        
+    const total = isControlledPagination 
+        ? pagingData.total || 0
+        : data.length
+
 
     return (
         <Loading loading={Boolean(loading && data.length !== 0)} type="cover">
@@ -278,45 +301,36 @@ function _DataTable<T>(
                 <THead>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <Tr key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => {
-                                return (
-                                    <Th
-                                        key={header.id}
-                                        colSpan={header.colSpan}
-                                    >
-                                        {header.isPlaceholder ? null : (
-                                            <div
-                                                className={classNames(
-                                                    header.column.getCanSort() &&
-                                                        'cursor-pointer select-none point',
-                                                    loading &&
-                                                        'pointer-events-none',
-                                                )}
-                                                onClick={header.column.getToggleSortingHandler()}
-                                            >
-                                                {flexRender(
-                                                    header.column.columnDef
-                                                        .header,
-                                                    header.getContext(),
-                                                )}
-                                                {header.column.getCanSort() && (
-                                                    <Sorter
-                                                        sort={header.column.getIsSorted()}
-                                                    />
-                                                )}
-                                            </div>
-                                        )}
-                                    </Th>
-                                )
-                            })}
+                            {headerGroup.headers.map((header) => (
+                                <Th key={header.id} colSpan={header.colSpan}>
+                                    {header.isPlaceholder ? null : (
+                                        <div
+                                            className={classNames(
+                                                header.column.getCanSort() && 
+                                                'cursor-pointer select-none',
+                                                loading && 'pointer-events-none'
+                                            )}
+                                            onClick={header.column.getToggleSortingHandler()}
+                                        >
+                                            {flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                            {header.column.getCanSort() && (
+                                                <Sorter sort={header.column.getIsSorted()} />
+                                            )}
+                                        </div>
+                                    )}
+                                </Th>
+                            ))}
                         </Tr>
                     ))}
                 </THead>
+                
                 {loading && data.length === 0 ? (
                     <TableRowSkeleton
-                        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-                        columns={(finalColumns as Array<T>).length}
-                        rows={pagingData.pageSize}
+                        columns={finalColumns.length}
+                        rows={currentPageSize}
                         avatarInColumns={skeletonAvatarColumns}
                         avatarProps={skeletonAvatarProps}
                     />
@@ -324,14 +338,9 @@ function _DataTable<T>(
                     <TBody>
                         {noData ? (
                             <Tr>
-                                <Td
-                                    className="hover:bg-transparent"
-                                    colSpan={finalColumns.length}
-                                >
+                                <Td className="hover:bg-transparent" colSpan={finalColumns.length}>
                                     <div className="flex flex-col items-center gap-4">
-                                        {customNoDataIcon ? (
-                                            customNoDataIcon
-                                        ) : (
+                                        {customNoDataIcon || (
                                             <>
                                                 <FileNotFound />
                                                 <span className="font-semibold">
@@ -343,42 +352,30 @@ function _DataTable<T>(
                                 </Td>
                             </Tr>
                         ) : (
-                            table
-                                .getRowModel()
-                                .rows.slice(0, pageSize)
-                                .map((row) => {
-                                    return (
-                                        <Tr key={row.id}>
-                                            {row
-                                                .getVisibleCells()
-                                                .map((cell) => {
-                                                    return (
-                                                        <Td
-                                                            key={cell.id}
-                                                            style={{
-                                                                width: cell.column.getSize(),
-                                                            }}
-                                                        >
-                                                            {flexRender(
-                                                                cell.column
-                                                                    .columnDef
-                                                                    .cell,
-                                                                cell.getContext(),
-                                                            )}
-                                                        </Td>
-                                                    )
-                                                })}
-                                        </Tr>
-                                    )
-                                })
+                            table.getRowModel().rows.map((row) => (
+                                <Tr key={row.id}>
+                                    {row.getVisibleCells().map((cell) => (
+                                        <Td
+                                            key={cell.id}
+                                            style={{ width: cell.column.getSize() }}
+                                        >
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext()
+                                            )}
+                                        </Td>
+                                    ))}
+                                </Tr>
+                            ))
                         )}
                     </TBody>
                 )}
             </Table>
+
             <div className="flex items-center justify-between mt-4">
                 <Pagination
-                    pageSize={pageSize}
-                    currentPage={pageIndex}
+                    pageSize={currentPageSize}
+                    currentPage={currentPageIndex}
                     total={total}
                     onChange={handlePaginationChange}
                 />
@@ -387,8 +384,8 @@ function _DataTable<T>(
                         size="sm"
                         menuPlacement="top"
                         isSearchable={false}
-                        value={pageSizeOption.filter(
-                            (option) => option.value === pageSize,
+                        value={pageSizeOption.find(
+                            (option) => option.value === currentPageSize
                         )}
                         options={pageSizeOption}
                         onChange={(option) => handleSelectChange(option?.value)}
@@ -399,11 +396,11 @@ function _DataTable<T>(
     )
 }
 
-const DataTable = forwardRef(_DataTable) as <T>(
+export const DataTable = forwardRef(DataTableComponent) as <T>(
     props: DataTableProps<T> & {
         ref?: ForwardedRef<DataTableResetHandle>
     },
-) => ReturnType<typeof _DataTable>
+) => ReturnType<typeof DataTableComponent>
 
 export type { ColumnDef, Row, CellContext }
 export default DataTable

@@ -56,7 +56,8 @@ export default function useFaqList() {
    
 
 
-    const faqListTotal = data?.total || 0
+    const faqListTotal = data?.data?.length || 0
+    
 
     return {
         faqList,

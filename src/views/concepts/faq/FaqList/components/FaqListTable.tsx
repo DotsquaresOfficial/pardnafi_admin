@@ -211,30 +211,38 @@ const FaqListTable = () => {
             setSelectAllCustomer([])
         }
     }
+        const paginatedData = (list: any[], page: number, pageSize: number) => {
+        const start = (page - 1) * pageSize;
+        const end = page * pageSize;
+        return list.slice(start, end);
+    };
 
     return (
-        <DataTable
-            selectable
-            columns={columns}
-            data={faqList}
-            noData={!isLoading && faqList.length === 0}
-            skeletonAvatarColumns={[0]}
-            skeletonAvatarProps={{ width: 28, height: 28 }}
-            loading={isLoading}
-            pagingData={{
-                total: faqListTotal,
-                pageIndex: tableData.pageIndex as number,
-                pageSize: tableData.pageSize as number,
-            }}
-            // checkboxChecked={(row) =>
-            //     selectedCustomer.some((selected) => selected.id === row.id)
-            // }
-            onPaginationChange={handlePaginationChange}
-            onSelectChange={handleSelectChange}
-            onSort={handleSort}
-        // onCheckBoxChange={handleRowSelect}
-        // onIndeterminateCheckBoxChange={handleAllRowSelect}
-        />
+       <DataTable
+                selectable
+                columns={columns}
+                data={paginatedData(faqList, tableData?.pageIndex as number, tableData?.pageSize as number)}
+    
+                noData={!isLoading && faqList.length === 0}
+                skeletonAvatarColumns={[0]}
+                skeletonAvatarProps={{ width: 28, height: 28 }}
+                loading={isLoading}
+                pagingData={{
+                    total: faqList.length,
+                    pageIndex: tableData.pageIndex as number,
+                    pageSize: tableData.pageSize as number,
+                }}
+                checkboxChecked={(row) =>
+                    selectedCustomer.some((selected) => selected._id === row._id)
+                }
+                onPaginationChange={handlePaginationChange}
+                onSelectChange={(pageSize) =>
+                    setTableData({ pageIndex: 1, pageSize: pageSize || 10 })
+                }
+                onSort={handleSort}
+                onCheckBoxChange={handleRowSelect}
+                onIndeterminateCheckBoxChange={handleAllRowSelect}
+            />
     )
 }
 
