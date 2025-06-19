@@ -228,7 +228,7 @@ const DataTableComponent = <T,>(
         },
         onSortingChange: setSorting,
         state: {
-            pagination: isControlledPagination 
+            pagination: isControlledPagination
                 ? {
                     pageIndex: (pagingData.pageIndex || 1) - 1,
                     pageSize: pagingData.pageSize || 10,
@@ -236,7 +236,7 @@ const DataTableComponent = <T,>(
                 : internalPagination,
             sorting,
         },
-        pageCount: isControlledPagination 
+        pageCount: isControlledPagination
             ? Math.ceil((pagingData.total || 0) / (pagingData.pageSize || 10))
             : undefined,
     })
@@ -256,9 +256,9 @@ const DataTableComponent = <T,>(
 
     const handlePaginationChange = (page: number) => {
         if (loading) return
-        
+
         const zeroBasedPage = page - 1
-        
+
         if (isControlledPagination) {
             onPaginationChange?.(page)
         } else {
@@ -271,7 +271,7 @@ const DataTableComponent = <T,>(
 
     const handleSelectChange = (value?: number) => {
         if (loading || !value) return
-        
+
         if (isControlledPagination) {
             onSelectChange?.(value)
         } else {
@@ -282,15 +282,15 @@ const DataTableComponent = <T,>(
         }
     }
 
-    const currentPageIndex = isControlledPagination 
+    const currentPageIndex = isControlledPagination
         ? pagingData.pageIndex || 1
         : internalPagination.pageIndex + 1
-        
-    const currentPageSize = isControlledPagination 
+
+    const currentPageSize = isControlledPagination
         ? pagingData.pageSize || 10
         : internalPagination.pageSize
-        
-    const total = isControlledPagination 
+
+    const total = isControlledPagination
         ? pagingData.total || 0
         : data.length
 
@@ -306,7 +306,7 @@ const DataTableComponent = <T,>(
                                     {header.isPlaceholder ? null : (
                                         <div
                                             className={classNames(
-                                                header.column.getCanSort() && 
+                                                header.column.getCanSort() &&
                                                 'cursor-pointer select-none',
                                                 loading && 'pointer-events-none'
                                             )}
@@ -326,7 +326,7 @@ const DataTableComponent = <T,>(
                         </Tr>
                     ))}
                 </THead>
-                
+
                 {loading && data.length === 0 ? (
                     <TableRowSkeleton
                         columns={finalColumns.length}

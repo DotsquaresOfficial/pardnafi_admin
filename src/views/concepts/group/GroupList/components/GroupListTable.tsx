@@ -14,7 +14,7 @@ import type { DeleteData, DeleteResponse, GetGroupListResponse, Group, GroupData
 import type { TableQueries } from '@/@types/common'
 import { TbPencil, TbEye, TbLock } from 'react-icons/tb';
 import { AiOutlineUnlock } from 'react-icons/ai'
-import {  getAllGroup } from '@/services/GroupService'
+import { getAllGroup } from '@/services/GroupService'
 import { useToken } from '@/store/authStore'
 import { apiGetGroupList } from '@/services/GroupService'
 import useSWR from 'swr'
@@ -35,7 +35,7 @@ const someAsyncTokenFetchFunction = async (): Promise<string | null> => {
 
 
 
-const NameColumn = ({ row }: { row:any }) => {
+const NameColumn = ({ row }: { row: any }) => {
     return (
         <div className="flex items-center">
             <Avatar size={40} shape="circle" src={row.groupImage} />
@@ -130,10 +130,25 @@ const UserListTable = () => {
             },
             {
                 header: 'Description',
-                accessorKey: 'description',
+                accessorKey: 'description'
             },
             {
-                header: 'Registration Date',
+                header: 'Owner Address',
+                accessorKey: 'owner',
+            },
+
+
+            {
+                header: 'Group Size',
+                accessorKey: 'groupSize',
+            },
+            {
+                header: 'Transaction Hash',
+                accessorKey: 'txHash',
+            },
+
+            {
+                header: 'Created Date',
                 accessorKey: 'createdAt',
                 cell: (props: any) => {
                     const date = new Date(props.row.original.createdAt);
@@ -145,32 +160,32 @@ const UserListTable = () => {
                     return <span>{formattedDate}</span>;
                 },
             },
-            {
-                header: '',
-                id: 'action',
-                cell: (props) => {
-                    const row = props.row.original;
-                    const handleToggleStatus = () => {
+            // {
+            //     header: '',
+            //     id: 'action',
+            //     cell: (props) => {
+            //         const row = props.row.original;
+            //         const handleToggleStatus = () => {
 
-                        // if (row.isActive) {
+            //             // if (row.isActive) {
 
-                        //     handleDeactivateActivate(row._id, false);
-                        // } else {
-                        //     // Activate the account
-                        //     handleDeactivateActivate(row._id, true);
-                        // }
-                    };
+            //             //     handleDeactivateActivate(row._id, false);
+            //             // } else {
+            //             //     // Activate the account
+            //             //     handleDeactivateActivate(row._id, true);
+            //             // }
+            //         };
 
-                    return (
-                        <ActionColumn
-                            onEdit={() => handleEdit(row)}
-                            onViewDetail={() => handleViewDetails(row)}
-                            isActive={row.isActive}
-                        // onToggleStatus={handleToggleStatus}
-                        />
-                    );
-                },
-            },
+            //         return (
+            //             <ActionColumn
+            //                 onEdit={() => handleEdit(row)}
+            //                 onViewDetail={() => handleViewDetails(row)}
+            //                 isActive={row.isActive}
+            //             // onToggleStatus={handleToggleStatus}
+            //             />
+            //         );
+            //     },
+            // },
         ],
         [] // Add dependencies as needed
     );
@@ -213,12 +228,18 @@ const UserListTable = () => {
             setSelectAllCustomer([])
         }
     }
+    const paginatedData = (list: any[], page: number, pageSize: number) => {
+        const start = (page - 1) * pageSize;
+        const end = page * pageSize;
+        return list.slice(start, end);
+    };
 
     return (
         <DataTable
             selectable
             columns={columns}
-            data={groupList}
+            data={paginatedData(groupList, tableData?.pageIndex as number, tableData?.pageSize as number)}
+            // data={groupList}
             noData={!isLoading && groupList.length === 0}
             skeletonAvatarColumns={[0]}
             skeletonAvatarProps={{ width: 28, height: 28 }}

@@ -17,7 +17,7 @@ export default function useGroupList() {
 
 
     const { data, error, isLoading, mutate } = useSWR(
-        ['/api/group', { ...tableData, ...filterData }],
+        ['/group/get-all-groups', { ...tableData, ...filterData }],
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ([_, params]) =>
             apiGetGroupList<GetGroupListResponse, TableQueries>(params),
@@ -26,9 +26,10 @@ export default function useGroupList() {
         },
     )
 
+    console.log(data,"data===")
     const groupList = data?.data || []
 
-    const userListTotal = data?.total || 0
+    const userListTotal = data?.data?.length || 0
 
 
     return {

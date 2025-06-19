@@ -23,13 +23,13 @@ const GroupListActionTools = () => {
                     Download
                 </Button>
             </CSVLink>
-            <Button
+            {/* <Button
                 variant="solid"
                 icon={<TbUserPlus className="text-xl" />}
                 onClick={() => navigate('/concepts/group/group-create')}
             >
                 Add new
-            </Button>
+            </Button> */}
            
         </div>
     )

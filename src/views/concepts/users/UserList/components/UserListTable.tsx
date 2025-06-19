@@ -146,7 +146,7 @@ const UserListTable = () => {
         setSelectedCustomer,
         selectedCustomer,
     } = useUserList()
-    console.log(userList, "userList")
+    // console.log(userList, "userList")
 
     const roleNameRef = useRef<HTMLInputElement>(null)
 

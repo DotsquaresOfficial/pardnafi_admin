@@ -182,40 +182,40 @@ const conceptsNavigationConfig: NavigationTree[] = [
                 subMenu: [],
             },
 
-            {
-                key: 'concepts.group.groupCreate',
-                path: `${CONCEPTS_PREFIX_PATH}/group/group-create`,
-                title: 'Group Create',
-                translateKey: 'nav.conceptsGroup.groupCreate',
-                icon: 'groupCreate',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [ADMIN, USER],
-                meta: {
-                    description: {
-                        translateKey:
-                            'nav.conceptsGroup.groupCreateDesc',
-                        label: 'Create group info',
-                    },
-                },
-                subMenu: [],
-            },
-            {
-                key: 'concepts.group.groupEdit',
-                path: `${CONCEPTS_PREFIX_PATH}/group/group-edit/1`,
-                title: 'Group Edit',
-                translateKey: 'nav.conceptsGroup.groupEdit',
-                icon: 'groupEdit',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [ADMIN, USER],
-                meta: {
-                    description: {
-                        translateKey:
-                            'nav.conceptsGroup.groupEditDesc',
-                        label: 'Edit group info',
-                    },
-                },
-                subMenu: [],
-            },
+            // {
+            //     key: 'concepts.group.groupCreate',
+            //     path: `${CONCEPTS_PREFIX_PATH}/group/group-create`,
+            //     title: 'Group Create',
+            //     translateKey: 'nav.conceptsGroup.groupCreate',
+            //     icon: 'groupCreate',
+            //     type: NAV_ITEM_TYPE_ITEM,
+            //     authority: [ADMIN, USER],
+            //     meta: {
+            //         description: {
+            //             translateKey:
+            //                 'nav.conceptsGroup.groupCreateDesc',
+            //             label: 'Create group info',
+            //         },
+            //     },
+            //     subMenu: [],
+            // },
+            // {
+            //     key: 'concepts.group.groupEdit',
+            //     path: `${CONCEPTS_PREFIX_PATH}/group/group-edit/1`,
+            //     title: 'Group Edit',
+            //     translateKey: 'nav.conceptsGroup.groupEdit',
+            //     icon: 'groupEdit',
+            //     type: NAV_ITEM_TYPE_ITEM,
+            //     authority: [ADMIN, USER],
+            //     meta: {
+            //         description: {
+            //             translateKey:
+            //                 'nav.conceptsGroup.groupEditDesc',
+            //             label: 'Edit group info',
+            //         },
+            //     },
+            //     subMenu: [],
+            // },
 
             // {
             //     key: 'concepts.group.groupDetails',
