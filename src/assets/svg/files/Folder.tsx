@@ -7,7 +7,7 @@ const Folder = ({
 }) => {
     return (
         <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns=""
             viewBox="0 0 1024 1024"
             width={width}
             height={height}

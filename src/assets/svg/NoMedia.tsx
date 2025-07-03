@@ -7,7 +7,7 @@ const NoMedia = ({
 }) => {
     return (
         <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns=""
             viewBox="0 0 110 110"
             width={width}
             height={height}

@@ -122,7 +122,7 @@ const Radio = forwardRef<HTMLInputElement, RadioProps>((props, ref) => {
                 <svg
                     viewBox="0 0 16 16"
                     className="h-4 w-4 stroke-neutral fill-neutral opacity-0 peer-checked:opacity-100 pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 mt-[0.75px]"
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns=""
                 >
                     <circle cx="8" cy="8" r="3" />
                 </svg>

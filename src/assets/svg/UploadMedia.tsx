@@ -7,7 +7,7 @@ const UploadMedia = ({
 }) => {
     return (
         <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns=""
             enableBackground="new 0 0 1364 960"
             viewBox="0 0 1364 960"
             width={width}

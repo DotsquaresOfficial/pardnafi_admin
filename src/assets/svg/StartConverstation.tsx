@@ -7,7 +7,7 @@ const StartConverstation = ({
 }) => {
     return (
         <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns=""
             xmlSpace="preserve"
             id="Layer_1"
             x={0}

@@ -48,6 +48,20 @@ const NameColumn = ({ row }: { row: any }) => {
         </div>
     )
 }
+const TxColumn = ({ row }: { row: any }) => {
+    return (
+        <div className="flex items-center">
+
+            <Link
+                className={`hover:text-primary ml-2 rtl:mr-2 font-semibold text-gray-900 dark:text-gray-100`}
+                to={`https://testnet.bscscan.com/tx/${row.txHash}`}
+            >
+                {row.txHash}
+            </Link>
+        </div>
+    )
+}
+
 
 const ActionColumn = ({
     onEdit,
@@ -117,6 +131,9 @@ const UserListTable = () => {
         navigate(`/concepts/group/group-details/${customer._id}`)
     }
 
+    const handleNavigate = (customer: Group) => {
+        navigate(`https://testnet.bscscan.com/tx/${customer.txHash}`)
+    }
 
     const columns: ColumnDef<Group>[] = useMemo(
         () => [
@@ -145,6 +162,11 @@ const UserListTable = () => {
             {
                 header: 'Transaction Hash',
                 accessorKey: 'txHash',
+                cell: (props) => {
+                    const row = props.row.original;
+                    return <TxColumn row={row} />;
+
+                }
             },
 
             {

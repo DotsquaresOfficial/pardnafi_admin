@@ -306,19 +306,20 @@ const DataTableComponent = <T,>(
                                     {header.isPlaceholder ? null : (
                                         <div
                                             className={classNames(
-                                                header.column.getCanSort() &&
+                                                header.column.getCanSort()
+                                                 &&
                                                 'cursor-pointer select-none',
                                                 loading && 'pointer-events-none'
                                             )}
-                                            onClick={header.column.getToggleSortingHandler()}
+                                            // onClick={header.column.getToggleSortingHandler()}
                                         >
                                             {flexRender(
                                                 header.column.columnDef.header,
                                                 header.getContext()
                                             )}
-                                            {header.column.getCanSort() && (
+                                           {/* ` {header.column.getCanSort() && (
                                                 <Sorter sort={header.column.getIsSorted()} />
-                                            )}
+                                            )}` */}
                                         </div>
                                     )}
                                 </Th>

@@ -15,6 +15,7 @@ export type Group = {
     firstName: string;
     lastName: string;
     email: string;
+    txHash: string;
     id: string;
 }
 

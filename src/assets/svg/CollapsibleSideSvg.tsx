@@ -7,7 +7,7 @@ const CollapsibleSideSvg = ({
 }) => {
     return (
         <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns=""
             viewBox="0 0 500 500" // Adjusted viewBox
             width={width}
             height={height}

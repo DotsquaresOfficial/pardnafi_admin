@@ -7,7 +7,7 @@ const FileFigma = ({
 }) => {
     return (
         <svg
-            xmlns="http://www.w3.org/2000/svg"
+            xmlns=""
             viewBox="0 0 287.82 384"
             width={width}
             height={height}
