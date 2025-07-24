@@ -57,6 +57,7 @@ function AuthProvider({ children }: AuthProviderProps) {
         const params = new URLSearchParams(search)
 
         const redirectUrl = params.get(REDIRECT_URL_KEY)
+        console.log(redirectUrl,"redirectUrl==")
 
         console.log(REDIRECT_URL_KEY,"REDIRECT_URL_KEY===")
         navigatorRef.current?.navigate(

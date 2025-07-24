@@ -81,12 +81,11 @@ const SignInForm = (props: SignInFormProps) => {
             setSubmitting(true)
 
             const result = await signIn({ email, password })
-            console.log(result,"result==")
-         
-           
 
             if (result?.success) {
                 setMessage?.(result.message)
+                // window.location.href =/dashboard
+                navigate("/dashboard")
             } else   {
                 setMessage?.(result?.message)
             }
