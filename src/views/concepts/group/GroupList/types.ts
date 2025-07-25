@@ -8,6 +8,7 @@ export type Filter = {
 
 
 export type Group = {
+    owner:string;
     avatar: string;
     isDeleted: boolean;
     isActive: boolean;
@@ -15,6 +16,7 @@ export type Group = {
     firstName: string;
     lastName: string;
     email: string;
+    groupAddress:string;
     txHash: string;
     id: string;
 }

@@ -49,6 +49,7 @@ const NameColumn = ({ row }: { row: any }) => {
     )
 }
 const TxColumn = ({ row }: { row: any }) => {
+     const formattedAddress = `${row.txHash?.slice(0, 4)}...${row.txHash?.slice(-4)}`;
     return (
         <div className="flex items-center">
 
@@ -56,7 +57,22 @@ const TxColumn = ({ row }: { row: any }) => {
                 className={`hover:text-primary ml-2 rtl:mr-2 font-semibold text-gray-900 dark:text-gray-100`}
                 to={`https://testnet.bscscan.com/tx/${row.txHash}`}
             >
-                {row.txHash}
+                {formattedAddress}
+            </Link>
+        </div>
+    )
+}
+const TxGroupColumn = ({ row }: { row: any }) => {
+    const formattedAddress = `${row.groupAddress?.slice(0, 4)}...${row.groupAddress?.slice(-4)}`;
+
+    return (
+        <div className="flex items-center">
+
+            <Link
+                className={`hover:text-primary ml-2 rtl:mr-2 font-semibold text-gray-900 dark:text-gray-100`}
+                to={`https://testnet.bscscan.com/address/${row.groupAddress}`}
+            >
+                {formattedAddress}
             </Link>
         </div>
     )
@@ -152,6 +168,23 @@ const UserListTable = () => {
             {
                 header: 'Owner Address',
                 accessorKey: 'owner',
+                cell: (props) => {
+                    
+                    const row = props.row.original.owner;
+                    const formattedAddress = `${row?.slice(0, 4)}...${row?.slice(-4)}`;
+
+                    return <span>{formattedAddress}</span>;
+
+                }
+            },
+            {
+                header: 'Group Address',
+                accessorKey: 'groupAddress',
+                 cell: (props) => {
+                    const row = props.row.original;
+                    return <TxGroupColumn row={row} />;
+
+                }
             },
 
 
@@ -182,32 +215,7 @@ const UserListTable = () => {
                     return <span>{formattedDate}</span>;
                 },
             },
-            // {
-            //     header: '',
-            //     id: 'action',
-            //     cell: (props) => {
-            //         const row = props.row.original;
-            //         const handleToggleStatus = () => {
-
-            //             // if (row.isActive) {
-
-            //             //     handleDeactivateActivate(row._id, false);
-            //             // } else {
-            //             //     // Activate the account
-            //             //     handleDeactivateActivate(row._id, true);
-            //             // }
-            //         };
-
-            //         return (
-            //             <ActionColumn
-            //                 onEdit={() => handleEdit(row)}
-            //                 onViewDetail={() => handleViewDetails(row)}
-            //                 isActive={row.isActive}
-            //             // onToggleStatus={handleToggleStatus}
-            //             />
-            //         );
-            //     },
-            // },
+           
         ],
         [] // Add dependencies as needed
     );

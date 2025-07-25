@@ -23,28 +23,28 @@ const navigationConfig: NavigationTree[] = [
 
     ...conceptsNavigationConfig,
 
-    {
-        key: 'transactionMenu',
-        path: '',
-        title: 'Transaction Management',
-        translateKey: 'nav.transactionMenu.transactionMenu',
-        icon: 'transactioncollapseMenu',
-        type: NAV_ITEM_TYPE_COLLAPSE,
-        authority: [],
-        subMenu: [
-            {
-                key: 'transactionMenu.item1',
-                path: '/transaction-details',
-                title: 'Transaction Details',
-                translateKey: 'nav.transactionMenu.item1',
-                icon: '',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: [],
-            },
+    // {
+    //     key: 'transactionMenu',
+    //     path: '',
+    //     title: 'Transaction Management',
+    //     translateKey: 'nav.transactionMenu.transactionMenu',
+    //     icon: 'transactioncollapseMenu',
+    //     type: NAV_ITEM_TYPE_COLLAPSE,
+    //     authority: [],
+    //     subMenu: [
+    //         {
+    //             key: 'transactionMenu.item1',
+    //             path: '/transaction-details',
+    //             title: 'Transaction Details',
+    //             translateKey: 'nav.transactionMenu.item1',
+    //             icon: '',
+    //             type: NAV_ITEM_TYPE_ITEM,
+    //             authority: [],
+    //             subMenu: [],
+    //         },
 
-        ],
-    },
+    //     ],
+    // },
     {
         key: 'contentMenu',
         path: '',
